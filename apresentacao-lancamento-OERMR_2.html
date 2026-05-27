@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OERMR · Lançamento · Apresentação Institucional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul-marco: #003F5C;
+  --azul-rio: #1B6B93;
+  --azul-medio: #4FB3BF;
+  --amarelo-sol: #F4B942;
+  --amarelo-suave: #FFF4D9;
+  --areia: #F5EFE0;
+  --areia-clara: #FAFAF7;
+  --verde-mata: #2E7D5B;
+  --terra: #C8553D;
+  --cinza-1: #4B5563;
+  --cinza-2: #9CA3AF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Sora', sans-serif;
+  background: var(--azul-marco);
+  color: var(--areia);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============ SLIDES ============ */
+.slides-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 80px 70px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0.6s;
+}
+
+.slide.ativo {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Animação dos elementos quando o slide aparece */
+.slide.ativo > * {
+  animation: aparecer 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.slide.ativo > *:nth-child(2) { animation-delay: 0.12s; }
+.slide.ativo > *:nth-child(3) { animation-delay: 0.24s; }
+.slide.ativo > *:nth-child(4) { animation-delay: 0.36s; }
+.slide.ativo > *:nth-child(5) { animation-delay: 0.48s; }
+.slide.ativo > *:nth-child(6) { animation-delay: 0.60s; }
+.slide.ativo > *:nth-child(7) { animation-delay: 0.72s; }
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ TIPOGRAFIA ============ */
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--amarelo-sol);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--amarelo-sol);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.titulo-mega {
+  font-size: clamp(60px, 8vw, 120px);
+  line-height: 0.95;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+.titulo-mega em {
+  font-style: italic;
+  color: var(--amarelo-sol);
+  font-weight: 400;
+}
+
+.titulo-grande {
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+.titulo-grande em {
+  font-style: italic;
+  color: var(--amarelo-sol);
+}
+
+.titulo-medio {
+  font-size: clamp(28px, 3.5vw, 48px);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.subtitulo {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.55;
+  font-weight: 300;
+  max-width: 760px;
+  color: rgba(245,239,224,0.85);
+  margin-bottom: 18px;
+}
+
+.quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(24px, 2.8vw, 38px);
+  line-height: 1.3;
+  font-weight: 300;
+  color: var(--areia);
+  max-width: 900px;
+  padding-left: 24px;
+  border-left: 3px solid var(--amarelo-sol);
+  margin: 24px 0;
+}
+
+/* ============ NÚMEROS-ESTRELA ============ */
+.numero-estrela {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(120px, 18vw, 280px);
+  line-height: 0.85;
+  font-weight: 400;
+  color: var(--amarelo-sol);
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+.numero-legenda {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 500;
+  color: rgba(245,239,224,0.85);
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* ============ GRIDS ============ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+/* ============ CARDS DE NÚMERO ============ */
+.card-numero {
+  background: rgba(245,239,224,0.04);
+  border: 1px solid rgba(244,185,66,0.2);
+  border-radius: 4px;
+  padding: 28px 24px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.card-numero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 0;
+  background: var(--amarelo-sol);
+  transition: height 0.4s;
+}
+.card-numero:hover {
+  background: rgba(245,239,224,0.07);
+  border-color: rgba(244,185,66,0.5);
+}
+.card-numero:hover::before { height: 100%; }
+
+.card-numero .valor {
+  font-family: 'Fraunces', serif;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--amarelo-sol);
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+.card-numero .descricao {
+  font-size: 13px;
+  color: rgba(245,239,224,0.7);
+  line-height: 1.5;
+}
+
+/* ============ CITAÇÕES NA TIMELINE ============ */
+.timeline-citacao {
+  background: rgba(245,239,224,0.04);
+  padding: 24px 30px;
+  border-left: 3px solid var(--amarelo-sol);
+  margin-bottom: 16px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.5;
+  border-radius: 0 4px 4px 0;
+}
+.timeline-citacao .autor {
+  font-family: 'Sora', sans-serif;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--amarelo-sol);
+  margin-top: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ============ TAGS / CHIPS ============ */
+.tag-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+.tag {
+  background: rgba(244,185,66,0.15);
+  color: var(--amarelo-sol);
+  border: 1px solid rgba(244,185,66,0.3);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ============ FEATURES GRID ============ */
+.feature-bloco {
+  padding: 24px 0;
+  border-top: 1px solid rgba(244,185,66,0.2);
+}
+.feature-bloco h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  color: var(--amarelo-sol);
+  margin-bottom: 10px;
+}
+.feature-bloco p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(245,239,224,0.8);
+}
+
+/* ============ BLOCO PÚBLICO-ALVO ============ */
+.publico-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 32px;
+}
+.publico-card {
+  background: linear-gradient(180deg, rgba(245,239,224,0.05), rgba(245,239,224,0.02));
+  border: 1px solid rgba(244,185,66,0.15);
+  padding: 26px 22px;
+  border-radius: 4px;
+  position: relative;
+}
+.publico-card .icon {
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+.publico-card h5 {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--amarelo-sol);
+  margin-bottom: 12px;
+}
+.publico-card p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(245,239,224,0.8);
+}
+
+/* ============ CONTROLES DE NAVEGAÇÃO ============ */
+.controles {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 36px;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(244,185,66,0.15);
+  z-index: 100;
+}
+.btn-nav {
+  background: transparent;
+  border: 1px solid rgba(244,185,66,0.3);
+  color: var(--amarelo-sol);
+  padding: 10px 18px;
+  border-radius: 100px;
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.btn-nav:hover:not(:disabled) {
+  background: var(--amarelo-sol);
+  color: var(--azul-marco);
+  border-color: var(--amarelo-sol);
+}
+.btn-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.contador-slide {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--amarelo-sol);
+  letter-spacing: 0.12em;
+}
+
+/* ============ TIMER ============ */
+.timer-box {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--areia);
+  background: rgba(244,185,66,0.1);
+  padding: 8px 16px;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(244,185,66,0.2);
+  cursor: pointer;
+}
+.timer-box.rodando {
+  background: rgba(46,125,91,0.2);
+  border-color: rgba(46,125,91,0.5);
+}
+.timer-box.passou-do-tempo {
+  background: rgba(200,85,61,0.25);
+  border-color: rgba(200,85,61,0.6);
+  color: #FF9A85;
+  animation: pulsar 1s ease-in-out infinite;
+}
+@keyframes pulsar {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ============ BARRA DE PROGRESSO ============ */
+.progresso-barra {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: var(--amarelo-sol);
+  width: 0%;
+  transition: width 0.4s;
+  z-index: 200;
+  box-shadow: 0 0 10px rgba(244,185,66,0.5);
+}
+
+/* ============ LOGO ============ */
+.logo {
+  position: fixed;
+  top: 24px;
+  left: 36px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--amarelo-sol);
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-mark::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background: var(--amarelo-sol);
+  border-radius: 50%;
+}
+.logo-texto {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--areia);
+}
+.logo-texto small {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--amarelo-sol);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ============ SLIDE INTRO ESPECIAL ============ */
+.slide-intro {
+  background:
+    radial-gradient(ellipse at 70% 20%, rgba(244,185,66,0.12), transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(27,107,147,0.3), transparent 50%),
+    linear-gradient(135deg, #002A3D, #003F5C);
+}
+.slide-intro .titulo-mega { font-size: clamp(70px, 10vw, 160px); }
+.slide-intro::after {
+  content: '';
+  position: absolute;
+  right: -120px; top: -120px;
+  width: 500px; height: 500px;
+  border: 1px solid rgba(244,185,66,0.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.slide-intro::before {
+  content: '';
+  position: absolute;
+  right: -200px; top: -200px;
+  width: 700px; height: 700px;
+  border: 1px solid rgba(244,185,66,0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ============ SLIDE NÚMERO GIGANTE ============ */
+.slide-numero {
+  text-align: center;
+  align-items: center;
+  background:
+    radial-gradient(ellipse at center, rgba(244,185,66,0.08), transparent 60%),
+    var(--azul-marco);
+}
+
+/* ============ SLIDE QUOTE GRANDE ============ */
+.slide-quote {
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(27,107,147,0.4), transparent 60%),
+    var(--azul-marco);
+}
+
+/* ============ SLIDE FINAL ============ */
+.slide-final {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(244,185,66,0.15), transparent 50%),
+    linear-gradient(180deg, #002A3D, #003F5C);
+  text-align: center;
+  align-items: center;
+}
+.slide-final .titulo-mega em {
+  display: block;
+}
+
+/* ============ FOOTER TIMING ============ */
+.slide-tempo {
+  position: absolute;
+  bottom: 90px;
+  right: 80px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(244,185,66,0.5);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .slide { padding: 80px 24px 80px; }
+  .logo { top: 14px; left: 20px; }
+  .controles { padding: 12px 16px; gap: 12px; flex-wrap: wrap; }
+  .btn-nav { padding: 8px 14px; font-size: 12px; }
+  .grid-2, .grid-3, .grid-4, .publico-grid { grid-template-columns: 1fr; gap: 20px; }
+  .titulo-mega { font-size: 42px !important; }
+  .titulo-grande { font-size: 32px; }
+  .numero-estrela { font-size: 80px !important; }
+  .card-numero .valor { font-size: 40px; }
+  .slide-tempo { display: none; }
+}
+
+/* Dica de teclado */
+.dica-teclado {
+  position: fixed;
+  bottom: 80px;
+  right: 36px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(244,185,66,0.4);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  z-index: 90;
+}
+@media (max-width: 768px) { .dica-teclado { display: none; } }
+
+/* ============ ELEMENTOS DECORATIVOS ============ */
+.linha-decorativa {
+  height: 1px;
+  background: linear-gradient(90deg, var(--amarelo-sol), transparent);
+  width: 120px;
+  margin: 20px 0;
+}
+
+.destaque-amarelo {
+  color: var(--amarelo-sol);
+  font-weight: 500;
+}
+
+.linha-numero {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 12px 0;
+}
+.linha-numero .num {
+  font-family: 'Fraunces', serif;
+  font-size: 36px;
+  color: var(--amarelo-sol);
+  min-width: 80px;
+  font-weight: 400;
+}
+.linha-numero .desc {
+  font-size: 15px;
+  color: rgba(245,239,224,0.85);
+  line-height: 1.45;
+}
+
+/* ============ CAPACIDADES GRID (slide 3) ============ */
+.capacidades-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0 22px;
+}
+.capacidade-card {
+  background: rgba(245,239,224,0.04);
+  border: 1px solid rgba(244,185,66,0.18);
+  border-radius: 6px;
+  padding: 18px 16px;
+  transition: all 0.25s ease;
+}
+.capacidade-card:hover {
+  background: rgba(245,239,224,0.07);
+  border-color: rgba(244,185,66,0.45);
+  transform: translateY(-2px);
+}
+.cap-icon { font-size: 26px; margin-bottom: 8px; }
+.cap-titulo {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  color: var(--amarelo-sol);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.cap-desc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(245,239,224,0.82);
+}
+.cap-desc strong {
+  color: var(--areia);
+  font-weight: 600;
+}
+
+/* ============ SELOS DE GARANTIA ============ */
+.selos-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(244,185,66,0.25);
+}
+.selo {
+  background: linear-gradient(135deg, rgba(244,185,66,0.18), rgba(244,185,66,0.08));
+  border: 1px solid rgba(244,185,66,0.35);
+  padding: 9px 16px;
+  border-radius: 100px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--areia);
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.selo-ico { font-size: 16px; }
+
+/* ============ MOCKUPS / TELAS ============ */
+.tela-mockup {
+  background: #002030;
+  border: 1px solid rgba(244,185,66,0.25);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  overflow: hidden;
+  position: relative;
+  margin: 16px 0;
+}
+.tela-mockup .browser-bar {
+  background: rgba(0,0,0,0.4);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.tela-mockup .browser-bar .dots { display: flex; gap: 6px; }
+.tela-mockup .browser-bar .dots i {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: block;
+}
+.tela-mockup .browser-bar .url {
+  background: rgba(255,255,255,0.05);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(245,239,224,0.6);
+  flex: 1;
+  text-align: center;
+}
+.tela-mockup .browser-content {
+  height: 340px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Painel mockup */
+.demo-painel {
+  background: linear-gradient(180deg, #002030, #001220);
+  padding: 16px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  gap: 12px;
+}
+.demo-painel-mapa {
+  background:
+    radial-gradient(ellipse at 65% 50%, rgba(244,185,66,0.15), transparent 50%),
+    linear-gradient(135deg, #1e3a5f, #0a2540);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.demo-painel-mapa svg { width: 100%; height: 100%; }
+.demo-painel-info {
+  background: rgba(0,0,0,0.3);
+  padding: 14px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 11px;
+}
+.demo-painel-info .h {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--amarelo-sol);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.demo-painel-info .big {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  color: var(--amarelo-sol);
+  line-height: 1;
+  margin: 2px 0;
+}
+.demo-painel-info .small {
+  color: rgba(245,239,224,0.7);
+  font-size: 10px;
+  line-height: 1.4;
+}
+.demo-painel-info .lista { display: flex; flex-direction: column; gap: 4px; }
+.demo-painel-info .item {
+  display: flex; justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.06);
+  font-size: 10.5px;
+}
+.demo-painel-info .item .nome { color: var(--areia); }
+.demo-painel-info .item .num {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--amarelo-sol);
+  font-weight: 600;
+}
+
+/* Canal mockup */
+.demo-canal {
+  background: linear-gradient(180deg, #002030, #001220);
+  padding: 16px;
+  height: 100%;
+}
+.demo-canal .barra-busca {
+  background: rgba(0,0,0,0.4);
+  padding: 10px 14px;
+  border-radius: 6px;
+  display: flex; gap: 8px; align-items: center;
+  margin-bottom: 12px;
+  border: 1px solid rgba(244,185,66,0.2);
+}
+.demo-canal .input-fake {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: rgba(245,239,224,0.7);
+}
+.demo-canal .pill {
+  background: rgba(244,185,66,0.15);
+  color: var(--amarelo-sol);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.demo-canal .resultados-info {
+  font-size: 11px;
+  color: rgba(245,239,224,0.6);
+  margin-bottom: 10px;
+}
+.demo-canal .resultados-info strong { color: var(--amarelo-sol); }
+.demo-canal .cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.demo-canal .card-empresa {
+  background: rgba(245,239,224,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 10px;
+  border-radius: 6px;
+}
+.demo-canal .card-empresa .logo-emp {
+  width: 32px; height: 32px;
+  background: var(--areia);
+  color: var(--azul-marco);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.demo-canal .card-empresa h6 {
+  font-family: 'Fraunces', serif;
+  font-size: 12px;
+  color: var(--areia);
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+.demo-canal .card-empresa .meta {
+  font-size: 9.5px;
+  color: rgba(245,239,224,0.55);
+  line-height: 1.4;
+}
+
+/* Detalhe empresa mockup */
+.demo-empresa-detalhe {
+  background: white;
+  height: 100%;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  color: #003F5C;
+}
+.demo-empresa-detalhe h6 {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  color: var(--azul-marco);
+  margin-bottom: 4px;
+}
+.demo-empresa-detalhe .setor-pill {
+  background: var(--areia);
+  color: var(--azul-marco);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 100px;
+  display: inline-block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.demo-empresa-detalhe .row {
+  display: flex; gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid #F5EFE0;
+  font-size: 10px;
+}
+.demo-empresa-detalhe .row .l {
+  color: #6B7280;
+  min-width: 60px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+}
+.demo-empresa-detalhe .row .v { color: #1F2937; }
+.demo-empresa-detalhe .mapa-fake {
+  background:
+    linear-gradient(135deg, #E8F4F8, #B8DDE8),
+    radial-gradient(circle at 60% 40%, rgba(244,185,66,0.3), transparent 30%);
+  border-radius: 6px;
+  position: relative;
+  min-height: 180px;
+  display: flex; align-items: center; justify-content: center;
+}
+.demo-empresa-detalhe .pin-mapa {
+  font-size: 36px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+.demo-empresa-detalhe .mapa-botoes {
+  position: absolute; bottom: 8px; left: 8px; right: 8px;
+  display: flex; gap: 4px;
+}
+.demo-empresa-detalhe .mapa-botoes .mb {
+  flex: 1;
+  background: rgba(255,255,255,0.95);
+  color: #003F5C;
+  font-size: 9px;
+  padding: 4px 6px;
+  border-radius: 3px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Mobile/Tablet/Desktop frames */
+.dispositivos-row {
+  display: flex; justify-content: center; align-items: flex-end;
+  gap: 32px; margin: 30px 0;
+}
+.mobile-frame {
+  width: 180px; height: 360px;
+  background: #1a1a1a;
+  border-radius: 24px;
+  padding: 6px;
+  border: 1px solid rgba(244,185,66,0.2);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  flex-shrink: 0;
+}
+.tablet-frame {
+  width: 280px; height: 210px;
+  background: #1a1a1a;
+  border-radius: 14px;
+  padding: 6px;
+  border: 1px solid rgba(244,185,66,0.2);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  flex-shrink: 0;
+}
+.desktop-frame {
+  width: 360px; height: 230px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 6px;
+  border: 1px solid rgba(244,185,66,0.2);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  flex-shrink: 0;
+}
+.device-screen {
+  background: var(--azul-marco);
+  border-radius: 16px;
+  height: 100%; overflow: hidden;
+  position: relative;
+  padding: 8px;
+}
+.tablet-frame .device-screen { border-radius: 8px; padding: 6px; }
+.desktop-frame .device-screen { border-radius: 4px; padding: 4px; }
+.device-label {
+  position: absolute;
+  bottom: -28px; left: 0; right: 0;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--amarelo-sol);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Slide bem largo (mockups grandes) */
+.slide-amplo { padding: 80px 60px 70px !important; }
+.slide-amplo .titulo-grande { font-size: clamp(36px, 4vw, 56px); }
+</style>
+</head>
+<body>
+
+<div class="progresso-barra" id="progresso"></div>
+
+<div class="logo">
+  <div class="logo-mark"></div>
+  <div class="logo-texto">
+    OERMR
+    <small>Observatório Econômico · RMR</small>
+  </div>
+</div>
+
+<div class="slides-container">
+
+  <!-- ============ SLIDE 1: ABERTURA ============ -->
+  <div class="slide slide-intro ativo" data-tempo="00:00–01:30">
+    <div class="eyebrow">Lançamento Institucional</div>
+    <h1 class="titulo-mega">
+      A economia<br>
+      que estava <em>invisível</em>.
+    </h1>
+    <div class="linha-decorativa"></div>
+    <p class="subtitulo" style="max-width:580px;">
+      Bem-vindos ao lançamento do <strong>Observatório Econômico Regional da Mata Sul e Metropolitana</strong>. Uma plataforma pública, gratuita e oficial do SindiEmpresas.
+    </p>
+    <div class="slide-tempo">slide 01 / 17 · 00:00–01:30</div>
+  </div>
+
+  <!-- ============ SLIDE 2: ABERTURA - PROVOCAÇÃO ============ -->
+  <div class="slide" data-tempo="00:30–01:30">
+    <div class="eyebrow">Antes de começar</div>
+    <p class="quote">
+      Pernambuco produz mais de <span class="destaque-amarelo">R$ 288 bilhões</span> em riqueza por ano.<sup style="font-size:0.5em;">¹</sup><br>
+      Grande parte se concentra aqui, em <span class="destaque-amarelo">21 municípios</span> da Mata Sul e da Região Metropolitana do Recife.
+    </p>
+    <div class="grid-4">
+      <div class="card-numero">
+        <div class="valor">R$ 181k</div>
+        <div class="descricao">Maior PIB per capita de PE — Ipojuca<sup>²</sup></div>
+      </div>
+      <div class="card-numero">
+        <div class="valor">3,9M</div>
+        <div class="descricao">Habitantes na RMR<sup>⁵</sup></div>
+      </div>
+      <div class="card-numero">
+        <div class="valor">40k+</div>
+        <div class="descricao">Empresas formalizadas na região</div>
+      </div>
+      <div class="card-numero">
+        <div class="valor">21</div>
+        <div class="descricao">Municípios da Mata Sul e RMR</div>
+      </div>
+    </div>
+    <div class="slide-tempo">slide 02 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 3: O QUE ESSA FERRAMENTA RESOLVE ============ -->
+  <div class="slide" data-tempo="01:30–03:30">
+    <div class="eyebrow">O que ela resolve, na prática</div>
+    <h2 class="titulo-grande">Pesquisas que <em>levavam dias.</em><br>Em <em>segundos.</em></h2>
+    <p class="subtitulo" style="margin-bottom:8px;">
+      Para empresários, gestores, jornalistas, pesquisadores e cidadãos da região.
+    </p>
+
+    <div class="capacidades-grid">
+      <div class="capacidade-card">
+        <div class="cap-icon">🔎</div>
+        <div class="cap-titulo">Buscar empresas</div>
+        <div class="cap-desc">Pesquise entre <strong>mais de 40 mil empresas</strong> por nome, setor, CNPJ, cidade ou bairro — em menos de 1 segundo.</div>
+      </div>
+      <div class="capacidade-card">
+        <div class="cap-icon">📊</div>
+        <div class="cap-titulo">Comparar cidades</div>
+        <div class="cap-desc">Selecione até <strong>3 municípios</strong> e compare lado a lado: PIB, IDH, IDEB, leitos de saúde, empresas por setor.</div>
+      </div>
+      <div class="capacidade-card">
+        <div class="cap-icon">📍</div>
+        <div class="cap-titulo">Localizar com mapa</div>
+        <div class="cap-desc">Toda empresa tem <strong>mapa Google interativo</strong> com endereço, traçar rota e copiar endereço — em um clique.</div>
+      </div>
+      <div class="capacidade-card">
+        <div class="cap-icon">📈</div>
+        <div class="cap-titulo">Indicadores em tempo real</div>
+        <div class="cap-desc">PIB, população, taxa de desemprego — direto da <strong>API oficial do IBGE</strong>, sempre atualizado.</div>
+      </div>
+      <div class="capacidade-card">
+        <div class="cap-icon">🏫</div>
+        <div class="cap-titulo">Educação e saúde</div>
+        <div class="cap-desc">Notas do <strong>IDEB</strong>, leitos hospitalares do <strong>CNES</strong>, distribuição setorial por município.</div>
+      </div>
+      <div class="capacidade-card">
+        <div class="cap-icon">📝</div>
+        <div class="cap-titulo">Cadastrar empresa</div>
+        <div class="cap-desc">Empresários cadastram sua organização com logo, serviços e contato. <strong>Sem custo. Para sempre.</strong></div>
+      </div>
+    </div>
+
+    <!-- Selos de garantia -->
+    <div class="selos-row">
+      <div class="selo"><span class="selo-ico">💯</span> 100% Gratuito</div>
+      <div class="selo"><span class="selo-ico">🕐</span> Online 24/7</div>
+      <div class="selo"><span class="selo-ico">📱</span> Mobile · Tablet · Desktop</div>
+      <div class="selo"><span class="selo-ico">🔒</span> Dados Oficiais</div>
+    </div>
+
+    <div class="slide-tempo">slide 03 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 4: A VIRADA ============ -->
+  <div class="slide slide-quote" data-tempo="03:30–05:30">
+    <div class="eyebrow">A virada</div>
+    <h2 class="titulo-grande" style="max-width:1000px;">
+      Os dados sempre estiveram aqui.<br>
+      <em>O que faltava era um mapa para enxergá-los.</em>
+    </h2>
+    <p class="subtitulo">
+      O OERMR não é uma plataforma técnica. É um mapa.<br>
+      Um mapa que junta o que estava separado. Que torna visível o que estava invisível.
+    </p>
+    <div class="tag-lista">
+      <span class="tag">Receita Federal</span>
+      <span class="tag">IBGE Censo 2022</span>
+      <span class="tag">PIB Municipal</span>
+      <span class="tag">IDEB</span>
+      <span class="tag">CNES Saúde</span>
+      <span class="tag">Suape Oficial</span>
+      <span class="tag">Porto Digital</span>
+      <span class="tag">ANTAQ</span>
+      <span class="tag">MTE</span>
+    </div>
+    <p class="subtitulo" style="font-style:italic; max-width:600px;">
+      Tudo isso em uma única plataforma. Pública. Gratuita. Atualizada em tempo real.
+    </p>
+    <div class="slide-tempo">slide 04 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 5: NÚMERO GIGANTE 1 ============ -->
+  <div class="slide slide-numero" data-tempo="05:30–06:00">
+    <div class="eyebrow" style="justify-content:center;">A plataforma em números</div>
+    <div class="numero-estrela">40.277</div>
+    <p class="numero-legenda">
+      <strong style="color:var(--amarelo-sol);">Mais de 40 mil empresas cadastradas</strong> em 21 municípios da Mata Sul e Região Metropolitana do Recife.<br>
+      Fontes oficiais: Receita Federal, Suape e Porto Digital. Atualizado mensalmente.
+    </p>
+    <div class="slide-tempo">slide 05 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 6: DEMONSTRAÇÃO 1 ============ -->
+  <div class="slide" data-tempo="06:00–08:00">
+    <div class="eyebrow">Demonstração ao vivo</div>
+    <h2 class="titulo-grande">Um mapa <em>que respira.</em></h2>
+    <p class="subtitulo">
+      Os 21 municípios contornados em amarelo sobre satélite real. Passe o mouse — a cidade conta sua história. Clique — abre o diagnóstico completo.
+    </p>
+    <div class="feature-bloco">
+      <h4>Indicadores em tempo real</h4>
+      <p>Empresas Ativas em PE · Taxa de Desocupação · PIB da RMR · População — direto da API oficial do IBGE.</p>
+    </div>
+    <div class="feature-bloco">
+      <h4>Distribuição setorial</h4>
+      <p>Comércio <span class="destaque-amarelo">8.701</span> · Logística <span class="destaque-amarelo">6.285</span> · Educação <span class="destaque-amarelo">6.058</span> · Construção <span class="destaque-amarelo">5.493</span> · Indústria <span class="destaque-amarelo">5.179</span></p>
+    </div>
+    <div class="feature-bloco">
+      <h4>Diagnóstico cidade a cidade</h4>
+      <p>População, PIB municipal, IDH, IDEB, leitos de saúde, top empresas, distribuição setorial — em uma única tela por cidade.</p>
+    </div>
+    <div class="slide-tempo">slide 06 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 7: DEMONSTRAÇÃO 2 - CANAL DE NEGÓCIOS ============ -->
+  <div class="slide" data-tempo="08:00–10:00">
+    <div class="eyebrow">Demonstração ao vivo · parte 2</div>
+    <h2 class="titulo-grande">Não é só ver.<br><em>É fazer negócio.</em></h2>
+    <p class="subtitulo">
+      O Canal de Negócios é a parte que vira ferramenta.
+    </p>
+    <div class="grid-3" style="margin-top:24px;">
+      <div class="card-numero">
+        <div class="valor">&lt;1s</div>
+        <div class="descricao">Busca por nome em <strong>mais de 40 mil empresas</strong>. Servidor responde em tempo real.</div>
+      </div>
+      <div class="card-numero">
+        <div class="valor">9</div>
+        <div class="descricao">Setores filtráveis: Comércio, Tech, Saúde, Indústria, Educação, Construção, Logística, Turismo, Serviços.</div>
+      </div>
+      <div class="card-numero">
+        <div class="valor">21</div>
+        <div class="descricao">Municípios filtráveis individualmente, com contagem precisa.</div>
+      </div>
+    </div>
+    <div class="feature-bloco" style="margin-top:30px;">
+      <h4>Mapa Google integrado em cada empresa</h4>
+      <p>Cada uma das 40 mil empresas tem mapa interativo, botão para abrir no Google Maps, traçar rota, copiar endereço. <span class="destaque-amarelo">Cada uma. Sem exceção.</span></p>
+    </div>
+    <div class="slide-tempo">slide 07 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 8: COMPARAÇÃO ============ -->
+  <div class="slide" data-tempo="10:00–10:30">
+    <div class="eyebrow">Demonstração · ferramenta para gestores</div>
+    <h2 class="titulo-grande">Compare <em>3 cidades</em> em segundos.</h2>
+    <p class="subtitulo">
+      Selecione até três municípios. Veja lado a lado: população, PIB, IDH, número de empresas, setor predominante.<br><br>
+      Para o prefeito que quer entender onde sua cidade está no ranking regional.<br>
+      Para o investidor que precisa decidir onde abrir operação.<br>
+      Para o jornalista que produz matéria sobre desenvolvimento regional.
+    </p>
+    <p class="quote" style="margin-top:30px;">
+      Tudo aqui. Gratuito. Público. <em>Sempre será.</em>
+    </p>
+    <div class="slide-tempo">slide 08 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 9: TELA DO MAPA E PAINEL ============ -->
+  <div class="slide slide-amplo" data-tempo="06:00–07:30">
+    <div class="eyebrow">Tela 1 · Mapa e painel</div>
+    <h2 class="titulo-grande" style="font-size:38px; margin-bottom:8px;">A região <em>em uma única tela.</em></h2>
+    <p class="subtitulo" style="font-size:15px; margin-bottom:8px; max-width:780px;">
+      Os 21 municípios contornados em amarelo sobre satélite real. Painel à direita com indicadores em tempo real, top 5 municípios e distribuição por setor.
+    </p>
+
+    <div class="tela-mockup">
+      <div class="browser-bar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="url">observatorio.sindiempresas.com.br</div>
+      </div>
+      <div class="browser-content">
+        <div class="demo-painel">
+          <div class="demo-painel-mapa">
+            <svg viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice">
+              <!-- Contorno da região (simplificado) -->
+              <path d="M 100 80 L 250 60 L 380 90 L 480 140 L 510 230 L 470 300 L 380 330 L 280 320 L 180 290 L 110 230 Z"
+                    fill="rgba(244,185,66,0.05)" stroke="#F4B942" stroke-width="2" stroke-dasharray="4,4"/>
+
+              <!-- Cidades (circulos amarelos com label) -->
+              <g>
+                <circle cx="380" cy="180" r="14" fill="rgba(244,185,66,0.3)" stroke="#F4B942" stroke-width="2"/>
+                <text x="395" y="185" fill="#F4B942" font-family="Sora" font-size="11" font-weight="600">Recife</text>
+              </g>
+              <g>
+                <circle cx="360" cy="220" r="13" fill="rgba(244,185,66,0.3)" stroke="#F4B942" stroke-width="2"/>
+                <text x="375" y="225" fill="#F4B942" font-family="Sora" font-size="10" font-weight="600">Jaboatão</text>
+              </g>
+              <g>
+                <circle cx="390" cy="155" r="13" fill="rgba(244,185,66,0.3)" stroke="#F4B942" stroke-width="2"/>
+                <text x="403" y="160" fill="#F4B942" font-family="Sora" font-size="10" font-weight="600">Olinda</text>
+              </g>
+              <g>
+                <circle cx="385" cy="125" r="11" fill="rgba(244,185,66,0.3)" stroke="#F4B942" stroke-width="2"/>
+                <text x="395" y="130" fill="#F4B942" font-family="Sora" font-size="9" font-weight="600">Paulista</text>
+              </g>
+              <g>
+                <circle cx="350" cy="260" r="12" fill="rgba(244,185,66,0.3)" stroke="#F4B942" stroke-width="2"/>
+                <text x="365" y="265" fill="#F4B942" font-family="Sora" font-size="9" font-weight="600">Cabo S.A.</text>
+              </g>
+              <g>
+                <circle cx="280" cy="280" r="8" fill="rgba(244,185,66,0.2)" stroke="#F4B942" stroke-width="1.5"/>
+                <text x="290" y="285" fill="rgba(244,185,66,0.7)" font-family="Sora" font-size="8">Vitória</text>
+              </g>
+              <g>
+                <circle cx="340" cy="310" r="6" fill="rgba(244,185,66,0.2)" stroke="#F4B942" stroke-width="1.5"/>
+              </g>
+
+              <!-- Texto status PLATAFORMA OFICIAL -->
+              <rect x="20" y="20" width="180" height="22" rx="11" fill="rgba(244,185,66,0.15)" stroke="rgba(244,185,66,0.4)"/>
+              <text x="35" y="35" fill="#F4B942" font-family="JetBrains Mono" font-size="9" letter-spacing="2">⊙ PLATAFORMA OFICIAL</text>
+            </svg>
+          </div>
+          <div class="demo-painel-info">
+            <div>
+              <div class="h">Em tempo real</div>
+              <div class="big">40.277</div>
+              <div class="small">empresas cadastradas em 21 municípios</div>
+            </div>
+            <div>
+              <div class="h">🏆 Top 5 Municípios</div>
+              <div class="lista">
+                <div class="item"><span class="nome">1 Recife</span><span class="num">3.321</span></div>
+                <div class="item"><span class="nome">2 Jaboatão</span><span class="num">3.218</span></div>
+                <div class="item"><span class="nome">3 Olinda</span><span class="num">3.218</span></div>
+                <div class="item"><span class="nome">4 Paulista</span><span class="num">3.157</span></div>
+                <div class="item"><span class="nome">5 Cabo S.A.</span><span class="num">3.043</span></div>
+              </div>
+            </div>
+            <div>
+              <div class="h">📊 Por setor</div>
+              <div class="lista">
+                <div class="item"><span class="nome">Comércio</span><span class="num">8.701</span></div>
+                <div class="item"><span class="nome">Logística</span><span class="num">6.285</span></div>
+                <div class="item"><span class="nome">Educação</span><span class="num">6.058</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-tempo">slide 09 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 10: TELA CANAL DE NEGÓCIOS ============ -->
+  <div class="slide slide-amplo" data-tempo="07:30–09:00">
+    <div class="eyebrow">Tela 2 · Canal de negócios</div>
+    <h2 class="titulo-grande" style="font-size:38px;">Buscar entre <em>40 mil empresas.</em> Em segundos.</h2>
+    <p class="subtitulo" style="font-size:15px; max-width:800px;">
+      Filtros por setor, município, porte. Busca por nome, CNPJ ou bairro. Resultados em tempo real direto do banco de dados.
+    </p>
+
+    <div class="tela-mockup">
+      <div class="browser-bar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="url">observatorio.sindiempresas.com.br/#canal</div>
+      </div>
+      <div class="browser-content">
+        <div class="demo-canal">
+          <div class="barra-busca">
+            <span style="font-size:14px;">🔎</span>
+            <div class="input-fake">construtora</div>
+            <span class="pill">Construção</span>
+            <span class="pill">Recife</span>
+            <span style="background:var(--amarelo-sol);color:var(--azul-marco);padding:5px 12px;border-radius:4px;font-size:10px;font-weight:700;">BUSCAR</span>
+          </div>
+          <div class="resultados-info">Mostrando <strong>12</strong> de <strong>1.247</strong> empresas · Ordenadas por relevância</div>
+          <div class="cards-row">
+            <div class="card-empresa">
+              <div class="logo-emp">C</div>
+              <h6>Construtora Moura Dubeux</h6>
+              <div class="meta">📍 Recife · Construção<br>Grande Porte</div>
+            </div>
+            <div class="card-empresa">
+              <div class="logo-emp">B</div>
+              <h6>Brennand Engenharia</h6>
+              <div class="meta">📍 Recife · Construção<br>Grande Porte</div>
+            </div>
+            <div class="card-empresa">
+              <div class="logo-emp">C</div>
+              <h6>Construtora Rio Ave</h6>
+              <div class="meta">📍 Recife · Construção<br>Médio Porte</div>
+            </div>
+          </div>
+          <div class="cards-row" style="margin-top:8px;">
+            <div class="card-empresa">
+              <div class="logo-emp">P</div>
+              <h6>Pernambuco Construções</h6>
+              <div class="meta">📍 Recife · Construção<br>Pequeno Porte</div>
+            </div>
+            <div class="card-empresa">
+              <div class="logo-emp">L</div>
+              <h6>LH Engenharia</h6>
+              <div class="meta">📍 Recife · Construção<br>Médio Porte</div>
+            </div>
+            <div class="card-empresa">
+              <div class="logo-emp">G</div>
+              <h6>Gabriel Bacelar S.A.</h6>
+              <div class="meta">📍 Olinda · Construção<br>Grande Porte</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--amarelo-sol); letter-spacing:0.1em; text-align:center; margin-top:8px;">
+      Cada card abre o perfil completo da empresa com mapa
+    </p>
+
+    <div class="slide-tempo">slide 10 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 11: TELA PERFIL EMPRESA COM MAPA ============ -->
+  <div class="slide slide-amplo" data-tempo="09:00–10:00">
+    <div class="eyebrow">Tela 3 · Perfil da empresa</div>
+    <h2 class="titulo-grande" style="font-size:38px;">Cada empresa com <em>endereço no mapa.</em></h2>
+    <p class="subtitulo" style="font-size:15px; max-width:780px;">
+      Mapa Google interativo embutido. Botões para abrir no Google Maps, traçar rota e copiar endereço. Em todas as mais de 40 mil empresas.
+    </p>
+
+    <div class="tela-mockup">
+      <div class="browser-bar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="url">observatorio.sindiempresas.com.br/#empresa/12345</div>
+      </div>
+      <div class="browser-content" style="height:330px;">
+        <div class="demo-empresa-detalhe">
+          <div>
+            <h6>Aché Laboratórios Farmacêuticos S.A.</h6>
+            <span class="setor-pill">⚗️ Indústria Farmacêutica</span>
+            <div style="margin-top:8px;">
+              <div class="row"><span class="l">CNPJ</span><span class="v">60.659.463/0006-50</span></div>
+              <div class="row"><span class="l">Porte</span><span class="v">Grande</span></div>
+              <div class="row"><span class="l">Município</span><span class="v">Cabo de Santo Agostinho</span></div>
+              <div class="row"><span class="l">Bairro</span><span class="v">Suape</span></div>
+              <div class="row"><span class="l">Telefone</span><span class="v">(81) 3526-XXXX</span></div>
+              <div class="row"><span class="l">E-mail</span><span class="v">contato@ache.com.br</span></div>
+              <div class="row"><span class="l">Endereço</span><span class="v">Av. Industrial Mauro Borba, 1000</span></div>
+              <div class="row"><span class="l">Origem</span><span class="v" style="color:#2E7D5B;font-weight:600;">⚓ Suape Oficial</span></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:9px; color:#003F5C; font-weight:700; letter-spacing:0.1em; margin-bottom:6px;">📍 LOCALIZAÇÃO</div>
+            <div class="mapa-fake">
+              <div class="pin-mapa">📍</div>
+              <div class="mapa-botoes">
+                <div class="mb">🗺️ Maps</div>
+                <div class="mb">🧭 Rota</div>
+                <div class="mb">📋 Copiar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-tempo">slide 11 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 12: ACESSO MULTI-DISPOSITIVO ============ -->
+  <div class="slide" data-tempo="10:00–11:00">
+    <div class="eyebrow">Acessível em qualquer lugar</div>
+    <h2 class="titulo-grande">No bolso. <em>No tablet.</em> Na mesa.</h2>
+    <p class="subtitulo" style="max-width:900px;">
+      Acesse pelo celular durante uma reunião. Pelo tablet em campo. Pelo computador no escritório. <strong style="color:var(--amarelo-sol);">Sempre disponível. Sempre atualizado.</strong>
+    </p>
+
+    <div class="dispositivos-row">
+      <!-- Mobile -->
+      <div style="position:relative;">
+        <div class="mobile-frame">
+          <div class="device-screen">
+            <div style="background:linear-gradient(135deg, var(--azul-marco), #001F3F); height:100%; padding:8px; display:flex;flex-direction:column;gap:6px;">
+              <div style="text-align:center; font-family:'Fraunces',serif; font-size:11px; color:var(--amarelo-sol);">OERMR</div>
+              <div style="background:rgba(244,185,66,0.1); padding:6px; border-radius:3px; font-size:8px; color:var(--areia);">🔎 Buscar empresa…</div>
+              <div style="background:rgba(244,185,66,0.05); padding:8px; border-radius:3px;">
+                <div style="font-family:'Fraunces',serif; font-size:24px; color:var(--amarelo-sol); text-align:center; line-height:1;">40.277</div>
+                <div style="text-align:center; font-size:7px; color:rgba(245,239,224,0.7); margin-top:3px;">empresas</div>
+              </div>
+              <div style="flex:1; background:radial-gradient(circle at 60% 40%, rgba(244,185,66,0.2), transparent), #1e3a5f; border-radius:3px; position:relative;">
+                <div style="position:absolute; top:30%; left:50%; width:8px; height:8px; background:#F4B942; border-radius:50%;"></div>
+                <div style="position:absolute; top:45%; left:55%; width:6px; height:6px; background:#F4B942; border-radius:50%;"></div>
+                <div style="position:absolute; top:60%; left:48%; width:5px; height:5px; background:#F4B942; border-radius:50%;"></div>
+              </div>
+              <div style="display:flex; gap:4px;">
+                <div style="flex:1; background:var(--amarelo-sol); color:var(--azul-marco); padding:4px; border-radius:3px; font-size:7px; text-align:center; font-weight:700;">Cadastrar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="device-label">📱 Mobile</div>
+      </div>
+
+      <!-- Tablet -->
+      <div style="position:relative;">
+        <div class="tablet-frame">
+          <div class="device-screen">
+            <div style="background:linear-gradient(135deg, var(--azul-marco), #001F3F); height:100%; padding:8px; display:grid; grid-template-columns:1fr 80px; gap:6px;">
+              <div style="background:radial-gradient(circle at 60% 40%, rgba(244,185,66,0.25), transparent), #1e3a5f; border-radius:3px; position:relative;">
+                <div style="position:absolute; top:30%; left:60%; width:10px; height:10px; background:#F4B942; border-radius:50%;"></div>
+                <div style="position:absolute; top:50%; left:65%; width:8px; height:8px; background:#F4B942; border-radius:50%;"></div>
+                <div style="position:absolute; top:65%; left:55%; width:6px; height:6px; background:#F4B942; border-radius:50%;"></div>
+                <div style="position:absolute; bottom:6px; left:6px; background:rgba(244,185,66,0.2); padding:2px 5px; font-size:7px; color:#F4B942; border-radius:2px; letter-spacing:0.1em;">⊙ OFICIAL</div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:4px;">
+                <div style="background:rgba(0,0,0,0.3); padding:5px; border-radius:3px;">
+                  <div style="font-family:'JetBrains Mono', monospace; font-size:6px; color:var(--amarelo-sol); letter-spacing:0.15em;">EM TEMPO REAL</div>
+                  <div style="font-family:'Fraunces',serif; font-size:18px; color:var(--amarelo-sol); line-height:1;">40.277</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.3); padding:5px; border-radius:3px;">
+                  <div style="font-family:'JetBrains Mono', monospace; font-size:6px; color:var(--amarelo-sol); letter-spacing:0.15em;">TOP 5</div>
+                  <div style="font-size:7px; color:var(--areia); line-height:1.5; margin-top:3px;">Recife · 3.321<br>Jaboatão · 3.218<br>Olinda · 3.218</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="device-label">📱 Tablet</div>
+      </div>
+
+      <!-- Desktop -->
+      <div style="position:relative;">
+        <div class="desktop-frame">
+          <div class="device-screen">
+            <div style="background:linear-gradient(135deg, var(--azul-marco), #001F3F); height:100%; padding:6px; display:grid; grid-template-columns:1fr 110px; gap:6px;">
+              <div style="background:radial-gradient(circle at 60% 40%, rgba(244,185,66,0.3), transparent), #1e3a5f; border-radius:3px; position:relative;">
+                <div style="position:absolute; top:25%; left:55%; width:12px; height:12px; background:rgba(244,185,66,0.4); border:2px solid #F4B942; border-radius:50%;"></div>
+                <div style="position:absolute; top:25%; left:62%; font-size:7px; color:#F4B942; font-weight:700;">Recife</div>
+                <div style="position:absolute; top:42%; left:55%; width:11px; height:11px; background:rgba(244,185,66,0.4); border:2px solid #F4B942; border-radius:50%;"></div>
+                <div style="position:absolute; top:42%; left:64%; font-size:7px; color:#F4B942; font-weight:700;">Jaboatão</div>
+                <div style="position:absolute; top:60%; left:50%; width:10px; height:10px; background:rgba(244,185,66,0.4); border:2px solid #F4B942; border-radius:50%;"></div>
+                <div style="position:absolute; top:60%; left:58%; font-size:7px; color:#F4B942; font-weight:700;">Cabo</div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:4px;">
+                <div style="background:rgba(0,0,0,0.3); padding:5px; border-radius:3px;">
+                  <div style="font-family:'JetBrains Mono', monospace; font-size:6px; color:var(--amarelo-sol); letter-spacing:0.15em;">EM TEMPO REAL</div>
+                  <div style="font-family:'Fraunces',serif; font-size:18px; color:var(--amarelo-sol); line-height:1;">40.277</div>
+                  <div style="font-size:6px; color:rgba(245,239,224,0.7);">em 21 municípios</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.3); padding:5px; border-radius:3px;">
+                  <div style="font-family:'JetBrains Mono', monospace; font-size:6px; color:var(--amarelo-sol); letter-spacing:0.15em;">TOP 5</div>
+                  <div style="font-size:6.5px; color:var(--areia); line-height:1.5; margin-top:2px;">1 Recife · 3.321<br>2 Jaboatão · 3.218<br>3 Olinda · 3.218</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.3); padding:5px; border-radius:3px;">
+                  <div style="font-family:'JetBrains Mono', monospace; font-size:6px; color:var(--amarelo-sol); letter-spacing:0.15em;">SETORES</div>
+                  <div style="font-size:6.5px; color:var(--areia); line-height:1.5; margin-top:2px;">Comércio · 8.701<br>Logística · 6.285</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="device-label">🖥️ Desktop</div>
+      </div>
+    </div>
+
+    <div class="selos-row" style="justify-content:center; margin-top:50px;">
+      <div class="selo"><span class="selo-ico">💯</span> 100% Gratuito</div>
+      <div class="selo"><span class="selo-ico">🕐</span> 24 horas · 7 dias</div>
+      <div class="selo"><span class="selo-ico">🌐</span> Sem instalação</div>
+      <div class="selo"><span class="selo-ico">🔒</span> Dados Oficiais</div>
+    </div>
+
+    <div class="slide-tempo">slide 12 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 9: O QUE MUDA ============ -->
+  <div class="slide" data-tempo="11:00–12:30">
+    <div class="eyebrow">O que muda agora</div>
+    <h2 class="titulo-grande">Uma ferramenta. <em>Quatro públicos.</em></h2>
+    <div class="publico-grid">
+      <div class="publico-card">
+        <div class="icon">💼</div>
+        <h5>Empresário</h5>
+        <p>Inteligência competitiva que antes custava R$ 30 a R$ 100 mil em consultoria. Agora no celular.</p>
+      </div>
+      <div class="publico-card">
+        <div class="icon">📰</div>
+        <h5>Jornalista</h5>
+        <p>Fonte primária verificada, com bases oficiais. Economiza dias de pesquisa em uma matéria.</p>
+      </div>
+      <div class="publico-card">
+        <div class="icon">🏛️</div>
+        <h5>Gestor público</h5>
+        <p>Observatório regional pronto para editais, planos diretores, estudos de impacto. Sem custar ao erário.</p>
+      </div>
+      <div class="publico-card">
+        <div class="icon">🧭</div>
+        <h5>Região</h5>
+        <p>Saímos do lugar de "Mata Sul é só engenho" para um organismo econômico interconectado e visível.</p>
+      </div>
+    </div>
+    <p class="quote" style="margin-top:36px;">
+      Um organismo econômico de 21 municípios e mais de 3,9 milhões de habitantes só na RMR.<sup>⁵</sup><br>
+      <em>E agora, finalmente, visível.</em>
+    </p>
+    <div class="slide-tempo">slide 13 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 10: CHAMADA À AÇÃO ============ -->
+  <div class="slide" data-tempo="12:30–13:30">
+    <div class="eyebrow">Três pedidos</div>
+    <h2 class="titulo-grande">Antes de encerrar.</h2>
+    <div class="linha-numero">
+      <div class="num">01</div>
+      <div class="desc"><strong style="color:var(--amarelo-sol);">Acessem agora.</strong> observatorio.sindiempresas.com.br · funciona no celular · compartilhem com colegas, parceiros, equipe.</div>
+    </div>
+    <div class="linha-numero">
+      <div class="num">02</div>
+      <div class="desc"><strong style="color:var(--amarelo-sol);">Cadastrem suas empresas.</strong> No botão "Cadastrar Empresa". Logo, descrição, serviços. Visibilidade gratuita com a credibilidade do SindiEmpresas.</div>
+    </div>
+    <div class="linha-numero">
+      <div class="num">03</div>
+      <div class="desc"><strong style="color:var(--amarelo-sol);">Façam parte do próximo passo.</strong> Meta 2027: 100 mil empresas catalogadas. Sugestões e parcerias: contato@sindiempresas.com.br</div>
+    </div>
+    <div class="slide-tempo">slide 14 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 11: FRASE FINAL ============ -->
+  <div class="slide slide-quote" data-tempo="13:30–14:30">
+    <div class="eyebrow">Para encerrar</div>
+    <h2 class="titulo-grande" style="max-width:1200px;">
+      O OERMR não é uma plataforma.<br>
+      <em>É uma escolha.</em>
+    </h2>
+    <p class="subtitulo" style="max-width:900px;">
+      A escolha do SindiEmpresas de não esperar que alguém venha de fora contar a nossa história.<br>
+      A escolha de fazer com as próprias mãos. A escolha de oferecer, de graça, ao empresário do interior,<br>ao jovem da periferia, ao prefeito de uma cidade pequena, ao jornalista que cobre desenvolvimento — o mesmo nível de informação que antes era privilégio de poucos.
+    </p>
+    <div class="slide-tempo">slide 15 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE FONTES (ENTRE 15 E 16) ============ -->
+  <div class="slide" data-tempo="14:00–14:30">
+    <div class="eyebrow">Transparência total</div>
+    <h2 class="titulo-grande" style="font-size:36px; margin-bottom:14px;">Cada número, <em>uma fonte oficial.</em></h2>
+    <p class="subtitulo" style="font-size:14px; max-width:780px; margin-bottom:16px;">
+      Todos os dados apresentados podem ser verificados em fontes públicas. Esta é a referência para imprensa, autoridades e pesquisadores.
+    </p>
+
+    <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(244,185,66,0.25); border-radius:8px; padding:24px 30px; font-size:12px;">
+      <div style="display:grid; grid-template-columns:30px 1fr 220px; gap:12px 18px; align-items:start;">
+        <div style="font-family:'JetBrains Mono',monospace; color:var(--amarelo-sol); font-weight:700;">¹</div>
+        <div><strong style="color:var(--areia);">PIB de Pernambuco — R$ 288,6 bi (2024)</strong></div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(245,239,224,0.7);">Seplag-PE</div>
+
+        <div style="font-family:'JetBrains Mono',monospace; color:var(--amarelo-sol); font-weight:700;">²</div>
+        <div><strong style="color:var(--areia);">PIB per capita Ipojuca — R$ 181.663,40 (2023)</strong></div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(245,239,224,0.7);">IBGE Cidades</div>
+
+        <div style="font-family:'JetBrains Mono',monospace; color:var(--amarelo-sol); font-weight:700;">³</div>
+        <div><strong style="color:var(--areia);">Porto Digital — maior parque tecnológico urbano e aberto do Brasil</strong></div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(245,239,224,0.7);">portodigital.org</div>
+
+        <div style="font-family:'JetBrains Mono',monospace; color:var(--amarelo-sol); font-weight:700;">⁴</div>
+        <div><strong style="color:var(--areia);">Suape — principal porto público do Nordeste; 8º do Brasil</strong></div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(245,239,224,0.7);">Antaq 2024 · suape.pe.gov.br</div>
+
+        <div style="font-family:'JetBrains Mono',monospace; color:var(--amarelo-sol); font-weight:700;">⁵</div>
+        <div><strong style="color:var(--areia);">População RMR — 3.961.730 hab (estimativa 2025)</strong></div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(245,239,224,0.7);">IBGE Estimativas Populacionais</div>
+
+        <div style="font-family:'JetBrains Mono',monospace; color:var(--amarelo-sol); font-weight:700;">⁶</div>
+        <div><strong style="color:var(--areia);">Recife — PIB R$ 66,4 bi · População 1.588.376</strong></div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(245,239,224,0.7);">IBGE Cidades</div>
+
+        <div style="font-family:'JetBrains Mono',monospace; color:var(--amarelo-sol); font-weight:700;">⁷</div>
+        <div><strong style="color:var(--areia);">Recife — maior PIB per capita do NE entre capitais (R$ 44.563)</strong></div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:rgba(245,239,224,0.7);">IBGE Contas Regionais 2023</div>
+      </div>
+    </div>
+
+    <p style="font-family:'JetBrains Mono', monospace; font-size:11px; color:rgba(245,239,224,0.5); margin-top:14px; text-align:center; letter-spacing:0.1em;">
+      Sem dados inventados. Tudo verificável.
+    </p>
+
+    <div class="slide-tempo">slide 16 / 17</div>
+  </div>
+
+  <!-- ============ SLIDE 12: ENCERRAMENTO ============ -->
+  <div class="slide slide-final" data-tempo="14:30–15:00">
+    <div class="eyebrow" style="justify-content:center;">A partir de hoje</div>
+    <h1 class="titulo-mega">
+      Esse mapa<br>
+      <em>existe.</em>
+    </h1>
+    <p class="subtitulo" style="font-size:22px; text-align:center; max-width:700px;">
+      observatorio.sindiempresas.com.br
+    </p>
+    <div class="linha-decorativa" style="margin: 30px auto;"></div>
+    <p style="font-family:'JetBrains Mono', monospace; font-size:13px; color:rgba(245,239,224,0.5); letter-spacing:0.15em; text-transform:uppercase;">
+      Muito obrigado
+    </p>
+    <div class="slide-tempo" style="left: 80px; right: auto; bottom:80px;">slide 17 / 17</div>
+  </div>
+
+</div>
+
+<div class="dica-teclado">← → SETAS · ESPAÇO · ESC</div>
+
+<div class="controles">
+  <button class="btn-nav" id="btn-anterior" onclick="navegar(-1)">
+    ← Anterior
+  </button>
+
+  <div style="display:flex; align-items:center; gap:16px;">
+    <div class="timer-box" id="timer" onclick="toggleTimer()">
+      ⏱ <span id="timer-display">00:00</span> / 15:00
+    </div>
+    <div class="contador-slide">
+      <span id="slide-atual">01</span> / <span id="total-slides">12</span>
+    </div>
+  </div>
+
+  <button class="btn-nav" id="btn-proximo" onclick="navegar(1)">
+    Próximo →
+  </button>
+</div>
+
+<script>
+// =================== NAVEGAÇÃO DE SLIDES ===================
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let slideAtual = 0;
+
+document.getElementById('total-slides').textContent = String(total).padStart(2, '0');
+
+function navegar(direcao) {
+  const novo = slideAtual + direcao;
+  if (novo < 0 || novo >= total) return;
+  irPara(novo);
+}
+
+function irPara(indice) {
+  slides[slideAtual].classList.remove('ativo');
+  slideAtual = indice;
+  slides[slideAtual].classList.add('ativo');
+
+  // Atualiza UI
+  document.getElementById('slide-atual').textContent = String(slideAtual + 1).padStart(2, '0');
+  document.getElementById('btn-anterior').disabled = slideAtual === 0;
+  document.getElementById('btn-proximo').disabled = slideAtual === total - 1;
+  document.getElementById('progresso').style.width = ((slideAtual + 1) / total * 100) + '%';
+}
+
+// =================== TECLADO ===================
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+    e.preventDefault();
+    navegar(1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    navegar(-1);
+  } else if (e.key === 'Home') {
+    irPara(0);
+  } else if (e.key === 'End') {
+    irPara(total - 1);
+  } else if (e.key === 'Escape') {
+    if (timerRodando) toggleTimer();
+  } else if (e.key === 'f' || e.key === 'F') {
+    // F = fullscreen
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+// =================== TIMER ===================
+let timerSegundos = 0;
+let timerInterval = null;
+let timerRodando = false;
+const LIMITE_SEGUNDOS = 15 * 60;
+
+function toggleTimer() {
+  if (timerRodando) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timerRodando = false;
+    document.getElementById('timer').classList.remove('rodando');
+  } else {
+    timerInterval = setInterval(() => {
+      timerSegundos++;
+      atualizarTimer();
+    }, 1000);
+    timerRodando = true;
+    document.getElementById('timer').classList.add('rodando');
+  }
+}
+
+function atualizarTimer() {
+  const min = Math.floor(timerSegundos / 60);
+  const sec = timerSegundos % 60;
+  document.getElementById('timer-display').textContent =
+    String(min).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+
+  const box = document.getElementById('timer');
+  if (timerSegundos > LIMITE_SEGUNDOS) {
+    box.classList.add('passou-do-tempo');
+  }
+}
+
+// =================== INICIALIZAÇÃO ===================
+irPara(0);
+
+// Touch swipe pra mobile
+let touchStartX = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+document.addEventListener('touchend', (e) => {
+  const touchEndX = e.changedTouches[0].screenX;
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) < 50) return;
+  if (diff > 0) navegar(1);
+  else navegar(-1);
+});
+
+console.log('%c🎤 Apresentação OERMR pronta!', 'color:#F4B942; font-size:14px; font-weight:bold;');
+console.log('Comandos:');
+console.log('  → / Espaço: próximo slide');
+console.log('  ← : slide anterior');
+console.log('  Home / End: primeiro / último');
+console.log('  F: fullscreen');
+console.log('  Click no timer: iniciar/pausar');
+</script>
+</body>
+</html>
