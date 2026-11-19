@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reforma Tributária · SindiEmpresas Cabo de Santo Agostinho</title>
+<meta name="description" content="Calculadora da Reforma Tributária para empresários: CBS, IBS, Simples Nacional, créditos e pagamento dividido, com as regras da calculadora oficial da Receita Federal.">
+<link rel="icon" href="https://sindiempresas.com.br/logo-sindiempresas.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: cabeçalho institucional + abas simples; uma coluna no celular, duas no computador. Cores da marca nos tokens --brand* (troque pelas do Sindiempresas). */
+:root{
+  --brand:#1C4E8A; --brand-ink:#FFFFFF; --brand-soft:#E7EEF7; --sun:#F2B705;
+  --bg:#F5F7FA; --card:#FFFFFF; --ink:#16202C; --muted:#5A6676; --line:#DDE3EA;
+  --cbs:#1C4E8A; --ibs:#E08A00; --old:#9AA5B1;
+  --ok:#17803D; --okbg:#E6F4EA; --no:#B42318; --nobg:#FDECEA; --att:#9A5B00; --attbg:#FFF4DE;
+  --f-head:"Manrope","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --brand:#6FA3E6; --brand-ink:#0B1626; --brand-soft:#1A2A40; --sun:#F2C230;
+  --bg:#0F151D; --card:#171F2A; --ink:#E7ECF2; --muted:#9DA9B8; --line:#2A3443;
+  --cbs:#6FA3E6; --ibs:#F2A93B; --old:#7C8896;
+  --ok:#4CC27E; --okbg:#14301F; --no:#F0857A; --nobg:#3A1A17; --att:#F2B544; --attbg:#352812; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --brand:#6FA3E6; --brand-ink:#0B1626; --brand-soft:#1A2A40; --sun:#F2C230;
+  --bg:#0F151D; --card:#171F2A; --ink:#E7ECF2; --muted:#9DA9B8; --line:#2A3443;
+  --cbs:#6FA3E6; --ibs:#F2A93B; --old:#7C8896;
+  --ok:#4CC27E; --okbg:#14301F; --no:#F0857A; --nobg:#3A1A17; --att:#F2B544; --attbg:#352812; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img{max-width:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--brand)}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-head);line-height:1.2;margin:0;text-wrap:balance}
+h1{font-size:clamp(26px,5.5vw,40px);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(21px,4vw,28px);font-weight:800}
+h3{font-size:18px;font-weight:700}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.num{font-variant-numeric:tabular-nums}
+a{color:var(--brand)}
+
+.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:9}
+.site .bar{background:var(--brand);color:var(--brand-ink)}
+.site .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.mark{display:flex;align-items:center;gap:10px;min-width:0}
+.mark .sq{width:34px;height:34px;border-radius:8px;background:var(--sun);color:#16202C;display:grid;place-items:center;font-family:var(--f-head);font-weight:800;font-size:15px;flex:none}
+.mark b{font-family:var(--f-head);font-weight:800;letter-spacing:.06em;font-size:16px}
+.mark span{display:block;font-size:12px;opacity:.85;line-height:1.2}
+.crumb{font-size:13px;opacity:.9;white-space:nowrap}
+@media (max-width:560px){.crumb{display:none}}
+nav.tabs{background:var(--card);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+nav.tabs a{flex:none;display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--muted);font-weight:600;font-size:15px;padding:12px;border-bottom:3px solid transparent;white-space:nowrap;min-height:48px}
+nav.tabs a[aria-current="page"]{color:var(--brand);border-bottom-color:var(--brand)}
+nav.tabs svg{width:18px;height:18px;flex:none}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+
+main{padding-block:24px 56px}
+section.view{display:flex;flex-direction:column;gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+@media (max-width:480px){.card{padding:16px;border-radius:12px}}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.two,.three{grid-template-columns:minmax(0,1fr)}}
+.intro{display:flex;flex-direction:column;gap:8px;max-width:70ch}
+.intro p{color:var(--muted);font-size:17px}
+
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px;min-width:0}
+label.f .help{font-weight:400;font-size:13.5px;color:var(--muted)}
+input,select{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;width:100%;min-width:0;min-height:48px}
+input:focus,select:focus{border-color:var(--brand)}
+input:disabled{opacity:.6}
+.money{position:relative}
+.money::before{content:"R$";position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600;font-size:15px}
+.money input{padding-left:42px;font-variant-numeric:tabular-nums;font-weight:600}
+input[type=range]{padding:0;min-height:32px;accent-color:var(--brand);border:none;background:none}
+input[type=checkbox]{width:22px;height:22px;min-height:0;accent-color:var(--brand);flex:none}
+.fgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:520px){.fgrid{grid-template-columns:minmax(0,1fr)}}
+button{font:inherit;font-weight:700;font-size:15px;cursor:pointer;border-radius:10px;padding:11px 16px;min-height:48px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+
+.step{display:flex;gap:12px;align-items:flex-start}
+.step .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:800;font-family:var(--f-head);font-size:15px}
+.step .b{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+@media (max-width:400px){.choices{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.choice{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px 12px;min-height:64px;border-radius:10px;font-weight:600;font-size:14.5px;line-height:1.3}
+.choice small{font-weight:400;font-size:12.5px;color:var(--muted)}
+.choice[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-soft);box-shadow:inset 0 0 0 1px var(--brand)}
+.years{display:flex;gap:6px;flex-wrap:wrap}
+.years button{min-width:66px;font-variant-numeric:tabular-nums}
+.years button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+
+.result{background:var(--brand-soft);border:1.5px solid color-mix(in srgb,var(--brand) 30%,transparent);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.big{font-family:var(--f-head);font-weight:800;font-size:clamp(30px,7vw,42px);line-height:1.1;font-variant-numeric:tabular-nums;color:var(--brand)}
+.lines{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.lines div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.lines div b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.lines div.t{font-weight:700}
+.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px}
+.box{border-radius:10px;padding:12px 14px;font-size:15px;display:flex;gap:10px;align-items:flex-start}
+.box .i{flex:none;font-weight:800;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;margin-top:1px}
+.box.ok{background:var(--okbg)} .box.ok .i{background:var(--ok);color:var(--card)}
+.box.no{background:var(--nobg)} .box.no .i{background:var(--no);color:var(--card)}
+.box.att{background:var(--attbg)} .box.att .i{background:var(--att);color:var(--card)}
+.how{counter-reset:h;display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.how li{counter-increment:h;position:relative;padding-left:34px;font-size:15px}
+.how li::before{content:counter(h);position:absolute;left:0;top:1px;width:24px;height:24px;border-radius:50%;border:2px solid var(--brand);color:var(--brand);display:grid;place-items:center;font-weight:800;font-size:12px}
+.nota{border:1.5px dashed var(--line);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;font-size:14px;align-items:baseline}
+.nota .c{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:600}
+.nota .v{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.nota .d{color:var(--muted)}
+details{border:1px solid var(--line);border-radius:10px;background:var(--card)}
+details>summary{cursor:pointer;font-weight:700;padding:14px 16px;list-style:none;display:flex;justify-content:space-between;gap:10px;min-height:48px;align-items:center}
+details>summary::-webkit-details-marker{display:none}
+details>summary::after{content:"+";font-size:22px;color:var(--brand);line-height:1}
+details[open]>summary::after{content:"−"}
+details>.in{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
+pre.code{margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.5;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto;white-space:pre}
+
+.hero{background:var(--brand);color:var(--brand-ink);border-radius:16px;padding:28px 24px;display:flex;flex-direction:column;gap:14px}
+@media (max-width:480px){.hero{padding:22px 18px}}
+.hero p{font-size:17px;opacity:.92;max-width:62ch}
+.hero .row button{background:var(--sun);color:#16202C;border-color:var(--sun)}
+.hero .row button.ghost{background:transparent;color:var(--brand-ink);border-color:color-mix(in srgb,var(--brand-ink) 50%,transparent)}
+.go{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:18px}
+.go:hover{border-color:var(--brand)}
+.go .q{font-family:var(--f-head);font-weight:800;font-size:18px}
+.go span{color:var(--muted);font-size:14.5px}
+.go em{font-style:normal;color:var(--brand);font-weight:700;font-size:14.5px;margin-top:4px}
+.yearline{display:flex;flex-direction:column}
+.yr{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.yr:last-child{border-bottom:none}
+.yr .y{font-family:var(--f-head);font-weight:800;font-size:18px;color:var(--brand)}
+.now{display:inline-block;font-size:11px;font-weight:700;background:var(--sun);color:#16202C;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.stackbar{display:flex;height:14px;border-radius:4px;overflow:hidden;background:var(--bg);margin-top:6px}
+.stackbar span{display:block;height:100%}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px;color:var(--muted)}
+.cmp{display:flex;flex-direction:column;gap:6px}
+.cmp .lbl{display:flex;justify-content:space-between;font-size:14px;gap:8px}
+.cmp .track{height:22px;border-radius:6px;background:var(--bg);overflow:hidden}
+.cmp .track span{display:block;height:100%;border-radius:6px}
+@media (prefers-reduced-motion:no-preference){.cmp .track span,.stackbar span,.flow span{transition:width .35s ease}}
+.flow{display:flex;height:40px;border-radius:8px;overflow:hidden;font-size:13px;font-weight:700}
+.flow span{display:flex;align-items:center;justify-content:center;color:#fff;white-space:nowrap;overflow:hidden;min-width:0}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media (max-width:560px){.vs{grid-template-columns:minmax(0,1fr)}}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;background:var(--card)}
+.opt.win{border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt .tag{align-self:flex-start;font-size:12px;font-weight:700;color:var(--ok);background:var(--okbg);padding:2px 8px;border-radius:999px}
+.opt .val{font-family:var(--f-head);font-weight:800;font-size:26px;font-variant-numeric:tabular-nums}
+ul.ck{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+ul.ck li{padding-left:24px;position:relative}
+ul.ck li::before{position:absolute;left:0;font-weight:800}
+ul.ck li.y::before{content:"✓";color:var(--ok)}
+ul.ck li.n::before{content:"✕";color:var(--no)}
+ul.ck li.a::before{content:"→";color:var(--brand)}
+.buy{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.buy:last-child{border-bottom:none}
+@media (max-width:440px){.buy{grid-template-columns:minmax(0,1fr)}}
+.buy b{display:block;font-size:15px}
+.buy small{color:var(--muted);font-size:13px}
+.tag-ok{color:var(--ok);font-weight:700;font-size:12.5px}
+.tag-no{color:var(--no);font-weight:700;font-size:12.5px}
+.tag-att{color:var(--att);font-weight:700;font-size:12.5px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{background:var(--bg);font-size:13px;color:var(--muted)}
+td.r,th.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pick{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+.pick button{display:block;width:100%;text-align:left;border:none;border-bottom:1px solid var(--line);border-radius:0;font-weight:500;font-size:14px;min-height:0;padding:10px 12px}
+.pick button:last-child{border-bottom:none}
+.pick button[aria-pressed="true"]{background:var(--brand-soft)}
+.pick code{font-weight:700;margin-right:6px}
+footer{background:var(--card);border-top:1px solid var(--line);padding-block:22px;color:var(--muted);font-size:13.5px}
+
+.topbar{background:var(--ink);color:var(--bg);font-size:13px}
+.topbar .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:6px}
+.topbar a{color:inherit;text-decoration:none}
+.topbar .l{display:flex;gap:16px;flex-wrap:wrap}
+@media (max-width:560px){.topbar .hide-sm{display:none}}
+.mark img{height:40px;width:auto;display:block;background:#fff;border-radius:6px;padding:2px}
+.portal{display:flex;gap:2px;flex-wrap:wrap}
+.portal a{color:var(--brand-ink);text-decoration:none;font-size:14px;font-weight:600;padding:6px 10px;border-radius:6px;opacity:.9}
+.portal a:hover{background:color-mix(in srgb,var(--brand-ink) 14%,transparent);opacity:1}
+.portal a.on{background:var(--sun);color:#16202C;opacity:1}
+.mbtn{display:none;background:transparent;color:var(--brand-ink);border-color:color-mix(in srgb,var(--brand-ink) 45%,transparent);min-height:40px;padding:6px 12px}
+@media (max-width:900px){.portal{display:none;position:absolute;left:0;right:0;top:100%;background:var(--brand);flex-direction:column;padding:8px max(16px,env(safe-area-inset-left,0px)) 14px;box-shadow:0 8px 20px rgba(0,0,0,.2)}.portal.open{display:flex}.mbtn{display:inline-flex;align-items:center}.site .bar{position:relative}}
+footer .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:720px){footer .cols{grid-template-columns:minmax(0,1fr)}}
+footer h4{font-family:var(--f-head);color:var(--ink);margin:0 0 6px;font-size:15px}
+footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--brand)}
+</style>
+
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div class="l"><span>(81) 99754-0092</span><span class="hide-sm">sindiempresascabo@gmail.com</span><span class="hide-sm">Cabo de Santo Agostinho · PE</span></div>
+  <div class="l"><a href="https://observatorio.sindiempresas.com.br">Observatório Econômico</a><a href="https://sindiempresas.com.br/admin.html" class="hide-sm">Área Restrita</a></div>
+</div></div>
+<header class="site">
+  <div class="bar"><div class="wrap">
+    <a class="mark" href="https://sindiempresas.com.br/" style="color:inherit;text-decoration:none"><img src="https://sindiempresas.com.br/logo-sindiempresas.png" alt="SindiEmpresas" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'sq',textContent:'S'}))"><div><b>SINDIEMPRESAS</b><span>Cabo de Santo Agostinho</span></div></a>
+    <button class="mbtn" id="mbtn" aria-expanded="false" aria-controls="portal">Menu</button>
+    <nav class="portal" id="portal" aria-label="Portal">
+      <a href="https://sindiempresas.com.br/#setores">Setores</a><a href="https://sindiempresas.com.br/#evento">Evento</a><a href="https://sindiempresas.com.br/#noticias">Notícias</a><a href="https://sindiempresas.com.br/#convencoes">Convenções</a><a href="https://sindiempresas.com.br/#impostometro">Impostômetro</a><a href="https://sindiempresas.com.br/#indicadores">Indicadores</a><a class="on" href="#inicio">Reforma Tributária</a><a href="https://observatorio.sindiempresas.com.br">Observatório</a>
+    </nav>
+  </div></div>
+    <div class="crumb">Serviços ao associado › Reforma Tributária</div>
+  </div></div>
+  <nav class="tabs" aria-label="Seções"><div class="wrap">
+    <a href="#inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Início</a>
+    <a href="#calcular"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg>Calcular venda</a>
+    <a href="#simples"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><path d="M17 15l2 2 3-4"/></svg>Simples Nacional</a>
+    <a href="#creditos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v18M7 8h7a3 3 0 0 1 0 6H8"/></svg>Créditos do mês</a>
+    <a href="#pagamento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>Pagamento dividido</a>
+    <a href="#duvidas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17h.01"/></svg>Dúvidas</a>
+  </div></nav>
+</header>
+
+<main class="wrap">
+
+<section class="view" id="v-inicio">
+  <div class="hero">
+    <h1>Reforma Tributária: calcule o imposto da sua venda em 3 passos</h1>
+    <p>A partir de 2027, PIS e Cofins dão lugar à CBS. Até 2033, ICMS e ISS dão lugar ao IBS. Esta calculadora usa as mesmas regras da calculadora oficial da Receita Federal e mostra, em linguagem simples, quanto vai na nota e o que você pode descontar.</p>
+    <div class="row"><a href="#calcular"><button>Calcular minha venda</button></a><a href="#simples"><button class="ghost">Sou do Simples Nacional</button></a></div>
+  </div>
+
+  <div class="three">
+    <a class="go" href="#calcular"><span class="q">Quanto de imposto vai na minha nota?</span><span>Escolha sua atividade, digite o valor e veja o resultado.</span><em>Calcular venda →</em></a>
+    <a class="go" href="#simples"><span class="q">Fico no DAS ou mudo de regime?</span><span>Compare os dois caminhos para empresas do Simples.</span><em>Simples Nacional →</em></a>
+    <a class="go" href="#creditos"><span class="q">Quanto vou pagar no fim do mês?</span><span>Imposto das vendas menos o que você já pagou nas compras.</span><em>Créditos do mês →</em></a>
+  </div>
+
+  <div class="two">
+    <div class="card stack">
+      <h2>O que muda, ano a ano</h2>
+      <div class="legend"><span><i class="dot" style="background:var(--old)"></i>Impostos de hoje</span><span><i class="dot" style="background:var(--cbs)"></i>CBS</span><span><i class="dot" style="background:var(--ibs)"></i>IBS</span></div>
+      <div class="yearline" id="yearline"></div>
+    </div>
+    <div class="stack">
+      <div class="card stack">
+        <h2>Minha atividade vai pagar mais ou menos?</h2>
+        <p class="muted small">Imposto embutido num produto ou serviço de R$ 1.000,00, hoje e quando a reforma estiver completa (2033).</p>
+        <label class="f">Sua atividade<select id="h-set"></select></label>
+        <div id="h-cmp" class="stack"></div>
+      </div>
+      <div class="card stack">
+        <h3>Em resumo</h3>
+        <ul class="ck">
+          <li class="a">O imposto passa a ser cobrado <b>por fora</b>, somado ao preço.</li>
+          <li class="a">O imposto que você paga nas compras da empresa vira <b>crédito</b> para descontar.</li>
+          <li class="a">Saúde, educação, alimentos e outras áreas têm <b>desconto na alíquota</b> de 30% a 100%.</li>
+          <li class="a">Famílias de baixa renda recebem parte do imposto de volta (<b>cashback</b>) a partir de 2027.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="v-calcular" hidden>
+  <div class="intro"><h2>Calcular o imposto de uma venda</h2><p>Responda os 3 passos. O resultado aparece ao lado (no celular, logo abaixo) e se atualiza sozinho.</p></div>
+  <div class="two">
+    <div class="card stack" style="gap:22px">
+      <div class="step"><div class="n">1</div><div class="b">
+        <h3>O que você está vendendo?</h3>
+        <div class="choices" id="k-ativ"></div>
+        <div id="k-outro" class="stack" hidden>
+          <label class="f">É mercadoria ou serviço?<select id="k-nat"><option value="bem">Mercadoria</option><option value="servico">Serviço</option></select></label>
+          <label class="f">Procure sua atividade na tabela oficial<input type="search" id="k-busca" placeholder="Ex.: transporte, imóvel, medicamento"></label>
+          <div class="pick" id="k-lista"></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n">2</div><div class="b">
+        <h3>Qual o valor da venda?</h3>
+        <label class="f">Valor total, como sai na nota hoje<span class="help">Se você ainda paga ICMS ou ISS, eles já estão dentro desse valor.</span><div class="money"><input type="number" inputmode="decimal" id="k-valor" value="1000" min="0" step="10"></div></label>
+      </div></div>
+      <div class="step"><div class="n">3</div><div class="b">
+        <h3>Em que ano é a venda?</h3>
+        <div class="years" id="k-anos"></div>
+        <p class="small muted" id="k-anotxt"></p>
+      </div></div>
+      <details><summary>Mais detalhes (opcional): frete, desconto, ICMS/ISS exato</summary><div class="in">
+        <div class="fgrid">
+          <label class="f">Frete cobrado<div class="money"><input type="number" inputmode="decimal" id="k-frete" value="0"></div></label>
+          <label class="f">Desconto na nota<div class="money"><input type="number" inputmode="decimal" id="k-desc" value="0"></div></label>
+        </div>
+        <label class="row" style="gap:10px;font-weight:600"><input type="checkbox" id="k-auto" checked> Estimar ICMS/ISS e PIS/Cofins automaticamente</label>
+        <div class="fgrid">
+          <label class="f"><span id="k-loclbl">Alíquota de ICMS que você paga (%)</span><input type="number" inputmode="decimal" id="k-locp" value="18" step="0.5"></label>
+          <label class="f">Valor exato de ICMS/ISS na nota<div class="money"><input type="number" inputmode="decimal" id="k-locv" value="0" disabled></div></label>
+        </div>
+        <p class="small muted">Empresa do Simples que não mudou de regime? Veja a aba <a href="#simples">Simples Nacional</a>: o imposto continua no DAS.</p>
+      </div></details>
+    </div>
+    <div class="stack" id="k-out"></div>
+  </div>
+</section>
+
+<section class="view" id="v-simples" hidden>
+  <div class="intro"><h2>Simples Nacional: continuar no DAS ou mudar?</h2><p>A partir de 2027, a empresa do Simples pode pagar a CBS e o IBS dentro do DAS, como sempre, ou separado, no "regime regular". Os outros impostos continuam no DAS nos dois casos.</p></div>
+  <div class="two">
+    <div class="card stack" style="gap:16px">
+      <label class="f">Sua atividade principal<select id="sn-anexo">
+        <option value="I">Comércio (Anexo I)</option>
+        <option value="II">Indústria (Anexo II)</option>
+        <option value="III" selected>Serviços em geral (Anexo III)</option>
+        <option value="IV">Obras, limpeza, vigilância, advocacia (Anexo IV)</option>
+        <option value="V">Serviços técnicos e intelectuais (Anexo V)</option>
+      </select></label>
+      <label class="f">Quanto a empresa faturou nos últimos 12 meses?<div class="money"><input type="number" inputmode="decimal" id="sn-rbt" value="900000" step="10000"></div></label>
+      <label class="f">Quanto vende por mês, em média?<div class="money"><input type="number" inputmode="decimal" id="sn-fat" value="80000" step="1000"></div></label>
+      <label class="f">Quanto das suas vendas é para outras empresas?<span class="help">Empresas do regime normal aproveitam o crédito do imposto que você cobra.</span><input type="range" id="sn-b2b" min="0" max="100" step="5" value="70"><span class="num" id="sn-b2b-l" style="font-weight:700"></span></label>
+      <label class="f">Quanto compra por mês de fornecedores?<span class="help">Mercadorias, insumos, aluguel, energia, serviços de empresas.</span><div class="money"><input type="number" inputmode="decimal" id="sn-comp" value="20000" step="1000"></div></label>
+      <details><summary>Ajustes (opcional)</summary><div class="in">
+        <label class="f">Sua alíquota do Simples (%)<span class="help">Está no extrato do PGDAS-D. Se deixar em branco, estimamos pela tabela.</span><input type="number" inputmode="decimal" id="sn-ef" step="0.01" placeholder="estimar"></label>
+        <label class="f">Sua atividade tem desconto na alíquota?<select id="sn-red"><option value="0">Não</option><option value="30">Sim, 30% (profissões regulamentadas)</option><option value="40">Sim, 40% (bares, hotéis, turismo)</option><option value="60">Sim, 60% (saúde, educação, alimentos)</option></select></label>
+        <label class="f">Ano<select id="sn-ano"></select></label>
+      </div></details>
+    </div>
+    <div class="stack" id="sn-out"></div>
+  </div>
+  <div class="card stack">
+    <h3>Prazos para escolher</h3>
+    <ul class="ck">
+      <li class="a">1º semestre de 2027: a opção terminou em 30/10/2026.</li>
+      <li class="a">Mudou de ideia? Dá para desistir da opção até <b>20/12/2026</b>.</li>
+      <li class="a">2º semestre de 2027: nova janela prevista para março de 2027.</li>
+      <li class="a">Quem não fizer nada continua com tudo no DAS.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="view" id="v-creditos" hidden>
+  <div class="intro"><h2>Quanto vou pagar no fim do mês?</h2><p>Na reforma, o imposto que você pagou nas compras da empresa vira crédito. No fim do mês você paga só a diferença.</p></div>
+  <div class="two">
+    <div class="card stack" style="gap:16px">
+      <label class="f">Quanto você vendeu no mês (sem impostos)?<div class="money"><input type="number" inputmode="decimal" id="cr-venda" value="150000" step="1000"></div></label>
+      <div class="fgrid">
+        <label class="f">Desconto na alíquota da sua atividade<select id="cr-red"><option value="0">Nenhum</option><option value="30">30%</option><option value="40">40%</option><option value="60">60%</option></select></label>
+        <label class="f">Ano<select id="cr-ano"></select></label>
+      </div>
+      <h3 style="margin-top:4px">O que você comprou no mês?</h3>
+      <div id="cr-buys"></div>
+    </div>
+    <div class="stack" id="cr-out"></div>
+  </div>
+  <div class="card stack">
+    <h3>Como não perder crédito</h3>
+    <ul class="ck">
+      <li class="y">Compre de fornecedores que emitem nota fiscal com a CBS e o IBS destacados.</li>
+      <li class="y">O crédito só vale depois que o fornecedor pagou o imposto. Com o pagamento dividido (split payment), isso acontece na hora.</li>
+      <li class="y">Máquinas e equipamentos dão crédito integral no mês da compra.</li>
+      <li class="n">Despesas pessoais de sócios e funcionários não dão crédito.</li>
+      <li class="a">Sobrou crédito? Use nos meses seguintes ou peça a devolução em dinheiro (prazo de 30 a 180 dias).</li>
+    </ul>
+  </div>
+</section>
+
+<section class="view" id="v-pagamento" hidden>
+  <div class="intro"><h2>Pagamento dividido (split payment)</h2><p>Quando seu cliente paga por Pix ou boleto, o banco separa a parte do imposto e manda direto para o governo. Você recebe o valor já sem o imposto.</p></div>
+  <div class="two">
+    <div class="card stack" style="gap:16px">
+      <label class="f">Valor do produto ou serviço (sem impostos)<div class="money"><input type="number" inputmode="decimal" id="sp-valor" value="10000" step="100"></div></label>
+      <label class="f">Desconto na alíquota da sua atividade<select id="sp-red"><option value="0">Nenhum</option><option value="30">30%</option><option value="40">40%</option><option value="60">60%</option></select></label>
+      <label class="f">Ano<select id="sp-ano"></select></label>
+      <label class="f">Como o cliente vai pagar?<select id="sp-meio"><option value="pix">Pix ou transferência</option><option value="boleto">Boleto</option><option value="cartao">Cartão</option></select></label>
+    </div>
+    <div class="stack" id="sp-out"></div>
+  </div>
+  <div class="card stack">
+    <h3>Quando começa</h3>
+    <div class="yearline" id="sp-crono"></div>
+    <p class="small muted">Cronograma divulgado em novembro de 2026. Nos primeiros anos o uso é opcional. Vale para vendas entre empresas; cartões e vendas ao consumidor ainda não entram.</p>
+  </div>
+</section>
+
+<section class="view" id="v-duvidas" hidden>
+  <div class="intro"><h2>Dúvidas frequentes</h2><p>Respostas curtas para as perguntas mais comuns dos associados.</p></div>
+  <div class="stack" id="faq"></div>
+
+  <details><summary>Ajustar as alíquotas usadas nos cálculos</summary><div class="in">
+    <p class="small muted">A CBS de 2027 em diante (11,3%) é o valor calculado pelo TCU, que vale até o Senado fixar a alíquota oficial. O IBS completo de 2033 ainda é uma estimativa. Se mudar, ajuste aqui e todas as telas se atualizam.</p>
+    <div class="fgrid">
+      <label class="f">CBS a partir de 2027 (%)<input type="number" id="p-cbs" value="11.3" step="0.01"></label>
+      <label class="f">IBS completo em 2033 (%)<input type="number" id="p-ibs" value="16.7" step="0.01"></label>
+      <label class="f">ICMS padrão de hoje (%)<input type="number" id="p-icms" value="18" step="0.5"></label>
+      <label class="f">ISS padrão de hoje (%)<input type="number" id="p-iss" value="5" step="0.5"></label>
+    </div>
+    <div class="tbl"><table id="ptable"></table></div>
+  </div></details>
+
+  <details><summary>Para o contador e a equipe de TI</summary><div class="in">
+    <p class="small">Esta calculadora reproduz as regras da Calculadora de Tributos da Receita Federal, publicada em código aberto em 13/11/2026 (licença MIT). Os descontos de alíquota e as regras de crédito vêm do banco de dados oficial do projeto.</p>
+    <ul class="ck">
+      <li class="a"><a href="https://github.com/ReceitaFederal/calculadora-rtc-regime-regular" target="_blank" rel="noopener">calculadora-rtc-regime-regular</a>: CBS, IBS e Imposto Seletivo, tabelas oficiais e XML das notas.</li>
+      <li class="a"><a href="https://github.com/ReceitaFederal/calculadora-rtc-simples-nacional" target="_blank" rel="noopener">calculadora-rtc-simples-nacional</a>: cálculo para optantes do Simples.</li>
+      <li class="a"><a href="https://github.com/ReceitaFederal/calculadora-rtc-gerador-danfse" target="_blank" rel="noopener">calculadora-rtc-gerador-danfse</a>: gera o PDF da NFS-e.</li>
+    </ul>
+    <p class="small">Regras: a partir de 2027 a API exige as alíquotas em <code>aliquotasNominais</code>; ICMS, ISS, PIS e Cofins saem da base enquanto existirem; arredondamento meio-par em 2 casas. Na tela Calcular venda, abra "Dados para o contador" para copiar o JSON da API e o grupo XML da nota.</p>
+  </div></details>
+</section>
+</main>
+
+<footer><div class="wrap stack" style="gap:18px">
+  <div class="cols">
+    <div><h4>SindiEmpresas Cabo</h4><p>Sindicato empresarial do comércio, shopping, supermercados, condomínios logísticos e atacado de Cabo de Santo Agostinho.</p></div>
+    <div><h4>Portal</h4><ul><li><a href="https://sindiempresas.com.br/#noticias">Notícias</a></li><li><a href="https://sindiempresas.com.br/#convencoes">Convenções Coletivas</a></li><li><a href="https://sindiempresas.com.br/#impostometro">Impostômetro</a></li><li><a href="#inicio">Reforma Tributária</a></li><li><a href="https://observatorio.sindiempresas.com.br">Observatório Econômico</a></li></ul></div>
+    <div><h4>Contato</h4><ul><li>(81) 99754-0092</li><li>sindiempresascabo@gmail.com</li><li>Cabo de Santo Agostinho · PE</li></ul></div>
+  </div>
+  <p class="small">Calculadora educativa para associados. Os valores são simulações e não substituem a orientação do seu contador. Regras baseadas na Lei Complementar 214/2025 e na Calculadora de Tributos da Receita Federal (GitHub, versão 1.6.1). Atualizado em novembro de 2026.</p>
+  <p class="small">© SindiEmpresas Cabo de Santo Agostinho. 2026.</p>
+</div></footer>
+
+<script>
+const CT = [["000001","000","Tributação integral","Situações tributadas integralmente pelo IBS e CBS.","Padrão",1,1,0,0,"Manutenção",0.0,0.0,""],["000002","000","Tributação integral","Exploração de via","Padrão",1,1,0,0,"Manutenção",0.0,0.0,"90111"],["000003","000","Tributação integral","Regime automotivo - projetos incentivados (art. 311)","Padrão",1,1,1,0,"Manutenção",0.0,0.0,""],["000004","000","Tributação integral","Regime automotivo - projetos incentivados (art. 312)","Padrão",1,1,1,0,"Manutenção",0.0,0.0,""],["000005","000","Tributação integral","Operação com EAC destinado à mistura com gasolina A, mas com saída do biocombustível com destinação diversa","Padrão",1,1,0,0,"Manutenção",0.0,0.0,""],["010001","010","Tributação com alíquotas uniformes","Operações do FGTS não realizadas pela Caixa Econômica Federal","Uniforme setorial",1,1,0,0,"Manutenção",0.0,0.0,""],["010002","010","Tributação com alíquotas uniformes","Operações do serviço financeiro","Uniforme setorial",1,1,0,0,"Manutenção",0.0,0.0,""],["011001","011","Tributação com alíquotas uniformes reduzidas","Planos de assistência funerária.","Uniforme nacional (referência)",1,1,0,0,"Manutenção",60.0,60.0,""],["011002","011","Tributação com alíquotas uniformes reduzidas","Planos de assistência à saúde","Uniforme nacional (referência)",1,1,0,0,"Manutenção",60.0,60.0,""],["011003","011","Tributação com alíquotas uniformes reduzidas","Intermediação de planos de assistência à saúde","Uniforme nacional (referência)",1,1,0,0,"Manutenção",60.0,60.0,"92401"],["011004","011","Tributação com alíquotas uniformes reduzidas","Concursos e prognósticos","Uniforme nacional (referência)",1,1,0,0,"Manutenção",0.0,0.0,""],["011005","011","Tributação com alíquotas uniformes reduzidas","Planos de assistência à saúde de animais domésticos","Uniforme nacional (referência)",1,1,0,0,"Manutenção",30.0,30.0,""],["200001","200","Alíquota reduzida","Serviços de transporte de bens até as zonas de processamento de exportação e bens exportados a partir das zonas de processamento de exportação","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200002","200","Alíquota reduzida","Fornecimento ou importação para produtor rural não contribuinte ou TAC","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200003","200","Alíquota reduzida","Vendas de produtos destinados à alimentação humana (Anexo I)","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"1"],["200004","200","Alíquota reduzida","Fornecimento de dispositivos médicos (Anexo XII)","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"12"],["200005","200","Alíquota reduzida","Fornecimento de dispositivos médicos para órgãos da administração pública e entidades de saúde imunes (Anexo IV)","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"4"],["200006","200","Alíquota reduzida","Situação de emergência de saúde pública reconhecida pelo Poder público","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"12"],["200007","200","Alíquota reduzida","Fornecimento dos dispositivos de acessibilidade próprios para pessoas com deficiência (Anexo XIII)","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"13"],["200008","200","Alíquota reduzida","Fornecimento dos dispositivos de acessibilidade próprios para pessoas com deficiência adquiridos por órgãos da administração pública (Anexo V)","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"5"],["200009","200","Alíquota reduzida","Fornecimento dos medicamentos registrados na Anvisa","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200010","200","Alíquota reduzida","Fornecimento dos medicamentos registrados na Anvisa, adquiridos por órgãos da administração pública","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200011","200","Alíquota reduzida","Fornecimento das composições para nutrição enteral e parenteral quando adquiridas por órgãos da administração pública (Anexo VI)","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"6"],["200012","200","Alíquota reduzida","Situação de emergência de saúde pública reconhecida pelo Poder público","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"12"],["200013","200","Alíquota reduzida","Fornecimento de tampões higiênicos, absorventes higiênicos internos ou externos","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200014","200","Alíquota reduzida","Fornecimento dos produtos hortícolas, frutas e ovos (Anexo XV)","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"15"],["200015","200","Alíquota reduzida","Venda de automóveis de passageiros de fabricação nacional adquiridos por motoristas profissionais ou pessoas com deficiência","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200016","200","Alíquota reduzida","Prestação de serviços de pesquisa e desenvolvimento por Instituição Científica, Tecnológica e de Inovação (ICT)","Padrão",0,0,0,0,"Manutenção",100.0,100.0,"91561"],["200017","200","Alíquota reduzida","Operações relacionadas ao FGTS","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200018","200","Alíquota reduzida","Operações de resseguro e retrocessão","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200019","200","Alíquota reduzida","Importador dos serviços financeiros contribuinte","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200020","200","Alíquota reduzida","Operação praticada por sociedades cooperativas optantes por regime específico do IBS e CBS","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200021","200","Alíquota reduzida","Serviços de transporte público coletivo de passageiros ferroviário e hidroviário","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200022","200","Alíquota reduzida","Operação originada fora da ZFM que destine bem material industrializado a contribuinte estabelecido na ZFM","Padrão",0,0,0,1,"Manutenção",100.0,100.0,""],["200023","200","Alíquota reduzida","Operação realizada por indústria incentivada que destine bem material intermediário para outra indústria incentivada na ZFM","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200024","200","Alíquota reduzida","Operação originada fora das Áreas de Livre Comércio destinadas a contribuinte estabelecido nas Áreas de Livre Comércio","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200025","200","Alíquota reduzida","Fornecimento dos serviços de educação relacionados ao Programa Universidade para Todos (Prouni)","Padrão",0,1,0,0,"Manutenção",100.0,60.0,"93081"],["200026","200","Alíquota reduzida","Locação de imóveis localizados nas zonas reabilitadas","Padrão",1,1,0,0,"Manutenção",80.0,80.0,"91581"],["200027","200","Alíquota reduzida","Operações de locação, cessão onerosa e arrendamento de bens imóveis","Padrão",1,1,0,0,"Manutenção",70.0,70.0,"92611"],["200028","200","Alíquota reduzida","Fornecimento dos serviços de educação (Anexo II)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"2"],["200029","200","Alíquota reduzida","Fornecimento dos serviços de saúde humana (Anexo III)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"3"],["200030","200","Alíquota reduzida","Venda dos dispositivos médicos (Anexo IV)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"4"],["200031","200","Alíquota reduzida","Fornecimento dos dispositivos de acessibilidade próprios para pessoas com deficiência (Anexo V)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"5"],["200032","200","Alíquota reduzida","Fornecimento dos medicamentos registrados na Anvisa ou produzidos por farmácias de manipulação, ressalvados os medicamentos sujeitos à alíquota zero","Padrão",1,1,0,0,"Manutenção",60.0,60.0,""],["200033","200","Alíquota reduzida","Fornecimento das composições para nutrição enteral e parenteral (Anexo VI)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"6"],["200034","200","Alíquota reduzida","Fornecimento dos alimentos destinados ao consumo humano (Anexo VII)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"7"],["200035","200","Alíquota reduzida","Fornecimento dos produtos de higiene pessoal e limpeza (Anexo VIII)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"8"],["200036","200","Alíquota reduzida","Fornecimento de produtos agropecuários, aquícolas, pesqueiros, florestais e extrativistas vegetais in natura","Padrão",1,1,0,0,"Manutenção",60.0,60.0,""],["200037","200","Alíquota reduzida","Fornecimento de serviços ambientais de conservação ou recuperação da vegetação nativa","Padrão",1,1,0,0,"Manutenção",60.0,60.0,""],["200038","200","Alíquota reduzida","Fornecimento dos insumos agropecuários e aquícolas (Anexo IX)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"9"],["200039","200","Alíquota reduzida","Fornecimento dos bens e serviços relacionados com produções nacionais artísticas, culturais, de eventos, jornalísticas e audiovisuais (Anexo X)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"10"],["200040","200","Alíquota reduzida","Fornecimento de serviços de comunicação institucional à administração pública","Padrão",1,1,0,0,"Manutenção",60.0,60.0,""],["200041","200","Alíquota reduzida","Fornecimento de serviço de educação desportiva (art. 141. I)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,""],["200042","200","Alíquota reduzida","Fornecimento de serviço de gestão e exploração do desporto (art. 141. II)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,""],["200043","200","Alíquota reduzida","Fornecimento à administração pública dos serviços e dos bens relativos à soberania (Anexo XI)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"11"],["200044","200","Alíquota reduzida","Operações e prestações de serviços de segurança da informação e segurança cibernética desenvolvidos por sociedade que tenha sócio brasileiro (Anexo XI)","Padrão",1,1,0,0,"Manutenção",60.0,60.0,"11"],["200045","200","Alíquota reduzida","Operações relacionadas a projetos de reabilitação urbana de zonas históricas e de áreas críticas de recuperação e reconversão urbanística","Padrão",1,1,0,0,"Manutenção",60.0,60.0,""],["200046","200","Alíquota reduzida","Operações com bens imóveis","Padrão",1,1,0,0,"Manutenção",50.0,50.0,""],["200047","200","Alíquota reduzida","Bares e Restaurantes","Padrão",1,1,0,0,"Manutenção",40.0,40.0,""],["200048","200","Alíquota reduzida","Hotelaria, Parques de Diversão e Parques Temáticos","Padrão",1,1,0,0,"Manutenção",40.0,40.0,"92811"],["200049","200","Alíquota reduzida","Transporte coletivo de passageiros rodoviário, ferroviário e hidroviário","Padrão",1,1,0,0,"Manutenção",40.0,40.0,""],["200050","200","Alíquota reduzida","Serviços de transporte aéreo regional coletivo de passageiros ou de carga","Padrão",1,1,0,0,"Manutenção",40.0,40.0,""],["200051","200","Alíquota reduzida","Agências de Turismo","Padrão",1,1,0,0,"Manutenção",40.0,40.0,""],["200052","200","Alíquota reduzida","Prestação de serviços de profissões intelectuais","Padrão",1,1,0,0,"Manutenção",30.0,30.0,"91271"],["200053","200","Alíquota reduzida","Fornecimento de medicamentos registrados na Anvisa, quando  classificados como soros ou vacinas","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["200054","200","Alíquota reduzida","Fornecimento de bem material pela cooperativa de produção agropecuária a associado não sujeito ao regime regular do IBS e da CBS","Padrão",0,0,0,0,"Manutenção",100.0,100.0,""],["221001","221","Alíquota fixa proporcional","Locação, cessão onerosa ou arrendamento de bem imóvel com alíquota sobre a receita bruta","Fixa",1,1,0,0,"Manutenção",0.0,0.0,"94871"],["221002","221","Alíquota fixa proporcional","Incorporação imobiliária submetida ao regime especial de tributação","Fixa",1,1,0,0,"Manutenção",0.0,0.0,""],["221003","221","Alíquota fixa proporcional","Incorporação imobiliária submetida ao regime especial de tributação","Fixa",1,1,0,0,"Manutenção",0.0,0.0,""],["221004","221","Alíquota fixa proporcional","Alienação de imóvel decorrente de parcelamento do solo","Fixa",1,1,0,0,"Manutenção",0.0,0.0,""],["222001","222","Redução de Base de Cálculo","Transporte internacional de passageiros, caso os trechos de ida e volta sejam vendidos em conjunto","Padrão",1,1,0,0,"Manutenção",0.0,0.0,""],["400001","400","Isenção","Fornecimento de serviços de transporte público coletivo de passageiros rodoviário e metroviário","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["400002","400","Isenção","Fornecimento de serviços de transporte público coletivo de passageiros rodoviário e metroviário com medição por quilômetro rodado","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410001","410","Imunidade e não incidência","Fornecimento de bonificações quando constem no documento fiscal e que não dependam de evento posterior","Sem alíquota",0,0,0,0,"Anulação",0.0,0.0,""],["410002","410","Imunidade e não incidência","Transferências entre estabelecimentos pertencentes ao mesmo contribuinte","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410003","410","Imunidade e não incidência","Doações sem contraprestação em benefício do doador","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410004","410","Imunidade e não incidência","Exportações de bens e serviços","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410005","410","Imunidade e não incidência","Fornecimentos realizados pela União, pelos Estados, pelo Distrito Federal e pelos Municípios","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410006","410","Imunidade e não incidência","Fornecimentos realizados por entidades religiosas e templos de qualquer culto","Sem alíquota",0,0,0,0,"Anulação",0.0,0.0,""],["410007","410","Imunidade e não incidência","Fornecimentos realizados por partidos políticos, entidades sindicais e instituições de educação e de assistência social","Sem alíquota",0,0,0,0,"Anulação",0.0,0.0,""],["410008","410","Imunidade e não incidência","Fornecimentos de livros, jornais, periódicos e do papel destinado a sua impressão","Sem alíquota",0,0,0,0,"Anulação",0.0,0.0,""],["410009","410","Imunidade e não incidência","Fornecimentos de fonogramas e videofonogramas musicais produzidos no Brasil","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410010","410","Imunidade e não incidência","Fornecimentos de serviço de comunicação nas modalidades de radiodifusão sonora e de sons e imagens de recepção livre e gratuita","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410011","410","Imunidade e não incidência","Fornecimentos de ouro, quando definido em lei como ativo financeiro ou instrumento cambial","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410012","410","Imunidade e não incidência","Fornecimento de condomínio edilício não optante pelo regime regular","Sem alíquota",0,0,0,0,"Anulação",0.0,0.0,""],["410013","410","Imunidade e não incidência","Exportações de combustíveis","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410014","410","Imunidade e não incidência","Fornecimento de produtor rural não contribuinte","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410015","410","Imunidade e não incidência","Fornecimento por transportador autônomo não contribuinte","Sem alíquota",0,0,1,1,"Manutenção",0.0,0.0,""],["410016","410","Imunidade e não incidência","Fornecimento ou aquisição de resíduos sólidos","Sem alíquota",0,0,1,1,"Manutenção",0.0,0.0,""],["410017","410","Imunidade e não incidência","Aquisição de bem móvel com crédito presumido sob condição de revenda realizada","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410018","410","Imunidade e não incidência","Operações relacionadas aos fundos garantidores e executores de políticas públicas","Sem alíquota",0,0,1,1,"Manutenção",0.0,0.0,""],["410019","410","Imunidade e não incidência","Exclusão da gorjeta na base de cálculo no fornecimento de alimentação","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410020","410","Imunidade e não incidência","Exclusão do valor de intermediação na base de cálculo no fornecimento de alimentação","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410021","410","Imunidade e não incidência","Contribuição de que trata o art. 149-A da Constituição Federal","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410022","410","Imunidade e não incidência","Consolidação da propriedade do bem pelo credor","Sem alíquota",0,0,null,null,"Manutenção",0.0,0.0,""],["410023","410","Imunidade e não incidência","Alienação de bens móveis ou imóveis que tenham sido objeto de garantia em que o prestador da garantia não seja contribuinte","Sem alíquota",0,0,0,null,"Manutenção",0.0,0.0,""],["410024","410","Imunidade e não incidência","Consolidação da propriedade do bem pelo grupo de consórcio","Sem alíquota",0,0,0,null,"Manutenção",0.0,0.0,""],["410025","410","Imunidade e não incidência","Alienação de bem que tenha sido objeto de garantia em que o prestador da garantia não seja contribuinte","Sem alíquota",0,0,0,null,"Manutenção",0.0,0.0,""],["410026","410","Imunidade e não incidência","Doação com anulação de crédito","Sem alíquota",0,0,0,null,"Manutenção",0.0,0.0,""],["410027","410","Imunidade e não incidência","Exportação de serviço ou de bem imaterial","Sem alíquota",0,0,0,0,"Manutenção",100.0,100.0,""],["410028","410","Imunidade e não incidência","Operações com bens imóveis realizadas por pessoas físicas não consideradas contribuintes","Sem alíquota",0,0,0,0,"Manutenção",100.0,100.0,""],["410029","410","Imunidade e não incidência","Operações acobertadas somente pelo ICMS","Sem alíquota",0,0,0,0,"Manutenção",100.0,100.0,""],["410030","410","Imunidade e não incidência","Estorno de crédito por perecimento, deteriorização, roubo, furto ou extravio.","Sem alíquota",0,0,0,0,"Manutenção",100.0,100.0,""],["410031","410","Imunidade e não incidência","Fornecimento em período anterior ao início de vigência de incidências de CBS e IBS","Sem alíquota",0,0,0,0,"Manutenção",100.0,100.0,""],["410032","410","Imunidade e não incidência","Tributos incidentes na operação que não integram a base de cálculo do IBS e da CBS","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410033","410","Imunidade e não incidência","Operações de Fundos de Investimento Imobiliário (FII) e Fundos de Investimento nas Cadeias Produtivas do Agronegócio (Fiagro)","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410034","410","Imunidade e não incidência","Operações de fundos de investimento","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410035","410","Imunidade e não incidência","Fornecimento realizado por nanoempreendedor","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["410036","410","Imunidade e não incidência","Descontos incondicionais","Sem alíquota",0,0,0,0,"Anulação",0.0,0.0,""],["410037","410","Imunidade e não incidência","Importação os bens materiais sem incidência de IBS e CBS","Sem alíquota",0,0,0,0,"Anulação",0.0,0.0,""],["410999","410","Imunidade e não incidência","Operações não onerosas sem previsão de tributação, não especificadas anteriormente","Sem alíquota",0,0,0,null,"Manutenção",0.0,0.0,""],["510001","510","Diferimento","Operações, sujeitas a diferimento, com energia elétrica, relativas à importação, geração, comercialização, distribuição e transmissão","Padrão",0,0,null,null,"Manutenção",0.0,0.0,"90281"],["515001","515","Diferimento com redução de alíquota","Operações, sujeitas a diferimento, com insumos agropecuários e aquícolas (Anexo IX)","Padrão",0,0,1,1,"Manutenção",60.0,60.0,"9"],["550001","550","Suspensão","Exportações de bens materiais","Sem alíquota",0,0,1,1,"Manutenção",0.0,0.0,""],["550002","550","Suspensão","Regime de Trânsito","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550003","550","Suspensão","Regimes de Depósito (art. 85)","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550004","550","Suspensão","Regimes de Depósito (art. 87)","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550005","550","Suspensão","Regimes de Depósito (art. 87, Parágrafo único)","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550006","550","Suspensão","Regimes de Permanência Temporária","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550007","550","Suspensão","Regimes de Aperfeiçoamento","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550008","550","Suspensão","Importação de bens para o Regime de Repetro-Temporário","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550009","550","Suspensão","GNL-Temporário","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550010","550","Suspensão","Repetro-Permanente","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550011","550","Suspensão","Repetro-Industrialização","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550012","550","Suspensão","Repetro-Nacional","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550013","550","Suspensão","Repetro-Entreposto","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550014","550","Suspensão","Zona de Processamento de Exportação","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550015","550","Suspensão","Regime Tributário para Incentivo à Modernização e à Ampliação da Estrutura Portuária","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550016","550","Suspensão","Regime Especial de Incentivos para o Desenvolvimento da Infraestrutura","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550017","550","Suspensão","Regime Tributário para Incentivo à Atividade Naval - Renaval (Art. 107, I)","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550018","550","Suspensão","Desoneração da aquisição de bens de capital","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550019","550","Suspensão","Importação de bem material por indústria incentivada para utilização na ZFM","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550020","550","Suspensão","Áreas de livre comércio","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550021","550","Suspensão","Industrialização destinada a exportações","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550022","550","Suspensão","Regime Especial de Incentivos para a Produção de Hidrogênio de Baixa Emissão de Carbono (Rehidro)","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550023","550","Suspensão","Operações com hidrocarbonetos líquidos derivados de petróleo não combustíveis ou de gás natural, inclusive nafta","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550024","550","Suspensão","Regime Tributário para Incentivo à Atividade Naval - Renaval (Art. 107, II)","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["550025","550","Suspensão","Regime Tributário para Incentivo à Atividade Naval - Renaval (Art. 107, III)","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["620001","620","Tributação monofásica","Tributação monofásica sobre combustíveis","Uniforme setorial",1,1,0,0,"Manutenção",0.0,0.0,"91721"],["620002","620","Tributação monofásica","Tributação monofásica com responsabilidade pela retenção sobre combustíveis","Uniforme setorial",1,1,0,0,"Manutenção",0.0,0.0,"91722"],["620003","620","Tributação monofásica","Tributação monofásica com responsabilidade de retenção de tributos por terceiros","Uniforme setorial",1,1,0,0,"Manutenção",0.0,0.0,"91723"],["620004","620","Tributação monofásica","Tributação monofásica sobre mistura de EAC com gasolina A em percentual superior ao obrigatório","Uniforme setorial",1,1,0,0,"Manutenção",0.0,0.0,"91724"],["620005","620","Tributação monofásica","Tributação monofásica sobre mistura de EAC com gasolina A em percentual inferior ao obrigatório","Uniforme setorial",1,1,null,null,"Manutenção",0.0,0.0,"91725"],["620006","620","Tributação monofásica","Tributação monofásica sobre combustíveis cobrada anteriormente","Uniforme setorial",1,1,0,0,"Manutenção",0.0,0.0,"91726"],["620007","620","Tributação monofásica","Perecimento, deteriorização, roubo, furto ou extravio no regime monofásico","Sem alíquota",1,1,0,0,"Anulação",0.0,0.0,""],["800001","800","Transferência de crédito","Fusão, cisão ou incorporação","Sem alíquota",1,1,0,0,"Manutenção",0.0,0.0,""],["800002","800","Transferência de crédito","Transferência de crédito do associado, inclusive as cooperativas singulares","Sem alíquota",1,1,0,0,"Manutenção",0.0,0.0,""],["810001","810","Ajustes de IBS na ZFM","Crédito presumido de IBS sobre o valor apurado nos fornecimentos a partir da ZFM","Sem alíquota",1,1,1,1,"Manutenção",0.0,0.0,""],["811001","811","Ajustes","Anulação de Crédito por Saídas Imunes/Isentas","Sem alíquota",0,0,null,null,"Anulação",0.0,0.0,""],["811002","811","Ajustes","Débitos de notas fiscais não processadas na apuração","Sem alíquota",0,0,null,null,null,0.0,0.0,""],["811003","811","Ajustes","Desenquadramento do Simples Nacional","Sem alíquota",0,0,null,null,null,0.0,0.0,""],["820001","820","Tributação em documento específico","Documento com informações de fornecimento de serviços de planos de assistência à saúde elencados no art. 234 da Lei Complementar nº214, de 2025","Sem alíquota",1,1,0,0,"Manutenção",0.0,0.0,"92341"],["820002","820","Tributação em documento específico","Documento com informações de fornecimento de serviços de planos de assistência funerária","Sem alíquota",1,1,0,0,"Manutenção",0.0,0.0,"92361"],["820003","820","Tributação em documento específico","Documento com informações de fornecimento de serviços de planos de assistência à saúde de animais domésticos","Sem alíquota",1,1,0,0,"Manutenção",0.0,0.0,"92431"],["820004","820","Tributação em documento específico","Documento com informações de prestação de serviços de consursos de prognósticos","Sem alíquota",1,1,0,0,"Manutenção",0.0,0.0,""],["820005","820","Tributação em documento específico","Documento com informações de alienação de bens imóveis","Sem alíquota",1,1,0,0,"Manutenção",0.0,0.0,""],["820006","820","Tributação em documento específico","Documento com informações de fornecimento de serviços de exploração de via","Sem alíquota",1,1,null,null,"Manutenção",0.0,0.0,"90111"],["820007","820","Tributação em documento específico","Documento com informações de fornecimento de serviços financeiros","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,"91811"],["820008","820","Tributação em documento específico","Documento com informações de fornecimento de serviço continuado, mas com tributação realizada em fatura anterior","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["820009","820","Tributação em documento específico","Cobrança relativa a fornecimentos declarados em outro documento","Sem alíquota",0,0,0,0,"Manutenção",0.0,0.0,""],["830001","830","Exclusão de base de cálculo","Documento com exclusão da BC da CBS e do IBS de energia elétrica fornecida pela distribuidora à UC","Sem alíquota",1,1,null,null,"Manutenção",0.0,0.0,""]];
+// [cClassTrib, cst, cstDesc, desc, tipoAliq, credCBS, credIBS, presForn, presAdq, credAnt, redCBS, redIBS, anexo]
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const YEARS = [2026,2027,2028,2029,2030,2031,2032,2033];
+const fmt = (n,d=2) => (isFinite(n)?n:0).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const brl = n => 'R$ ' + fmt(n);
+const pc = (n,d=1) => fmt(n,d) + '%';
+const num = id => { const v = parseFloat($(id).value); return isFinite(v) ? v : 0; };
+function round2(x){ const v=x*100,f=Math.floor(v),d=v-f; if (Math.abs(d-.5)<1e-7) return (f%2===0?f:f+1)/100; return Math.round(v)/100; }
+const r4 = x => Math.round(x*1e4)/1e4;
+const ctBy = c => CT.find(x=>x[0]===c);
+
+function prem(){ return {cbs:num('#p-cbs'), ibs:num('#p-ibs'), icms:num('#p-icms'), iss:num('#p-iss')}; }
+const IBS_F = {2029:.1,2030:.2,2031:.3,2032:.4,2033:1};
+const OLD_F = {2026:1,2027:1,2028:1,2029:.9,2030:.8,2031:.7,2032:.6,2033:0};
+function rates(y){
+  const p = prem();
+  if (y===2026) return {cbs:.9, uf:.1, mun:0, pc:true, oldF:1};
+  if (y<=2028) return {cbs:p.cbs, uf:.05, mun:.05, pc:false, oldF:1};
+  const i = p.ibs*IBS_F[y]; return {cbs:p.cbs, uf:r4(i*.7), mun:r4(i*.3), pc:false, oldF:OLD_F[y]};
+}
+const tot = r => r.cbs+r.uf+r.mun;
+const yearOpts = (sel,def) => sel.innerHTML = YEARS.map(y=>`<option value="${y}" ${y===def?'selected':''}>${y}</option>`).join('');
+
+/* motor: espelho de ElementoBaseCalculo.java (Receita Federal) */
+const ELEM = [
+ ['vProd',+1,null,2026,2033],['vFrete',+1,null,2026,2033],['vDesc',-1,null,2026,2033],
+ ['vPIS',-1,null,2026,2026],['vCOFINS',-1,null,2026,2026],
+ ['vICMS',-1,'bem',2026,2032],['vISSQN',-1,'servico',2026,2032],
+];
+function base(inp){
+  let b = 0;
+  for (const [tag,op,nat,ini,fim] of ELEM){ const v = inp[tag]||0; if (!v || inp.ano<ini || inp.ano>fim || (nat && nat!==inp.nat)) continue; b += op*v; }
+  return round2(b);
+}
+function calc(inp, ct, al){
+  const b = base(inp), sem = /Sem alíquota/i.test(ct[4]||'');
+  const rc = sem?0:(ct[10]||0), ri = sem?0:(ct[11]||0);
+  const g = (p,red) => { const pe = sem?0:r4(p*(1-red/100)); return {p,red,pe,v:round2(b*pe/100)}; };
+  const cbs=g(al.cbs,rc), uf=g(al.uf,ri), mun=g(al.mun,ri);
+  return {b, cbs, uf, mun, ibs:round2(uf.v+mun.v), sem};
+}
+
+const VIEWS = ['inicio','calcular','simples','creditos','pagamento','duvidas'];
+function route(){
+  const h = location.hash.slice(1), v = VIEWS.includes(h)?h:'inicio';
+  VIEWS.forEach(x => $('#v-'+x).hidden = x!==v);
+  $$('nav.tabs a').forEach(a => a.setAttribute('aria-current', a.getAttribute('href')==='#'+v?'page':'false'));
+  const cur = $(`nav.tabs a[href="#${v}"]`); if (cur && cur.scrollIntoView) cur.scrollIntoView({block:'nearest',inline:'nearest'});
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange', route);
+
+/* INÍCIO */
+const YTXT = {
+  2026:'Ano de teste. A nota mostra CBS de 0,9% e IBS de 0,1%, mas quem entrega as declarações não paga a mais.',
+  2027:'PIS e Cofins acabam e a CBS começa de verdade. O IBS ainda é simbólico (0,1%). Começa o Imposto Seletivo.',
+  2028:'Igual a 2027.',
+  2029:'ICMS e ISS caem 10%. O IBS sobe na mesma medida.',
+  2030:'ICMS e ISS caem para 80% do que são hoje.',
+  2031:'ICMS e ISS caem para 70%.',
+  2032:'ICMS e ISS caem para 60%. Último ano deles.',
+  2033:'Reforma completa: só CBS e IBS (e o Imposto Seletivo em alguns produtos).',
+};
+function renderYears(){
+  const p = prem(), V = 1000;
+  const data = YEARS.map(y=>{ const r = rates(y), pis = r.pc?V*.0925:0, loc = V*p.icms*r.oldF/100, b = V-pis-loc; return {y, old:pis+loc, cbs:b*r.cbs/100, ibs:b*(r.uf+r.mun)/100}; });
+  const max = Math.max(...data.map(d=>d.old+d.cbs+d.ibs));
+  $('#yearline').innerHTML = data.map(d=>`<div class="yr"><div class="y">${d.y}</div><div><div class="small">${YTXT[d.y]}${d.y===2027?'<span class="now">próximo ano</span>':''}</div>
+    <div class="stackbar"><span style="width:${d.old/max*100}%;background:var(--old)"></span><span style="width:${d.cbs/max*100}%;background:var(--cbs)${d.y===2026?';opacity:.45':''}"></span><span style="width:${d.ibs/max*100}%;background:var(--ibs)${d.y===2026?';opacity:.45':''}"></span></div></div></div>`).join('');
+}
+const SET = [
+ {n:'Comércio em geral',ct:'000001',pc:9.25,cred:true,loc:'icms',ins:.6,insRed:0},
+ {n:'Supermercado (alimentos)',ct:'200034',pc:0,cred:false,loc:7,bem:true,ins:.7,insRed:60},
+ {n:'Indústria',ct:'000001',pc:9.25,cred:true,loc:'icms',ins:.55,insRed:0},
+ {n:'Bar e restaurante',ct:'200047',pc:3.65,cred:false,loc:4,bem:true,ins:.35,insRed:60},
+ {n:'Advocacia, contabilidade, engenharia',ct:'200052',pc:3.65,cred:false,loc:'iss',ins:.1,insRed:0},
+ {n:'Escola particular',ct:'200028',pc:3.65,cred:false,loc:3,ins:.15,insRed:0},
+ {n:'Clínica e consultório',ct:'200029',pc:3.65,cred:false,loc:3,ins:.2,insRed:60},
+ {n:'Tecnologia e software',ct:'000001',pc:3.65,cred:false,loc:2,ins:.15,insRed:0},
+ {n:'Aluguel de imóveis',ct:'200027',pc:3.65,cred:false,loc:0,ins:.05,insRed:0},
+ {n:'Hotel e turismo',ct:'200048',pc:3.65,cred:false,loc:'iss',ins:.25,insRed:0},
+ {n:'Prestação de serviços em geral',ct:'000001',pc:3.65,cred:false,loc:'iss',ins:.2,insRed:0},
+];
+function renderCmp(){
+  const s = SET[+$('#h-set').value||0], p = prem(), ct = ctBy(s.ct), red = ct?ct[10]:0;
+  const loc = s.loc==='icms'?p.icms:s.loc==='iss'?p.iss:s.loc, isGood = s.loc==='icms'||s.bem;
+  const P = 1000, I = P*s.ins;
+  const oldEmb = P*(s.pc+loc)/100, oldRec = oldEmb - (s.cred?I*s.pc/100:0) - (isGood?I*loc/100:0);
+  const t = tot(rates(2033))*(1-red/100), tin = tot(rates(2033))*(1-s.insRed/100);
+  const newEmb = P - P/(1+t/100), newRec = newEmb - (I - I/(1+tin/100));
+  const m = Math.max(oldEmb,newEmb), up = newRec > oldRec + 1;
+  $('#h-cmp').innerHTML = `
+    <div class="cmp"><div class="lbl"><span>Hoje</span><b class="num">${brl(oldEmb)}</b></div><div class="track"><span style="width:${oldEmb/m*100}%;background:var(--old)"></span></div></div>
+    <div class="cmp"><div class="lbl"><span>2033${red?` (com desconto de ${fmt(red,0)}%)`:''}</span><b class="num">${brl(newEmb)}</b></div><div class="track"><span style="width:${newEmb/m*100}%;background:var(--cbs)"></span></div></div>
+    <div class="box ${up?'att':'ok'}"><span class="i">${up?'!':'✓'}</span><span>Depois de descontar os créditos das compras, a empresa recolheria cerca de <b>${brl(newRec)}</b>, contra <b>${brl(oldRec)}</b> hoje: ${up?'<b>mais imposto</b>. Em compensação, clientes empresa passam a descontar todo o imposto como crédito.':'<b>menos imposto</b>, principalmente pelo crédito das compras.'}</span></div>
+    <p class="small muted">Estimativa com alíquotas médias. ICMS, ISS e benefícios variam por estado e cidade.</p>`;
+}
+
+/* CALCULAR */
+const ATIV = [
+ {n:'Mercadorias em geral',d:'loja, atacado, indústria',ct:'000001',nat:'bem'},
+ {n:'Cesta básica',d:'arroz, feijão, leite…',ct:'200003',nat:'bem'},
+ {n:'Outros alimentos',d:'desconto de 60%',ct:'200034',nat:'bem'},
+ {n:'Higiene e limpeza',d:'desconto de 60%',ct:'200035',nat:'bem'},
+ {n:'Bar e restaurante',d:'desconto de 40%',ct:'200047',nat:'servico'},
+ {n:'Serviços em geral',d:'manutenção, TI, marketing',ct:'000001',nat:'servico'},
+ {n:'Profissão regulamentada',d:'advogado, contador, engenheiro',ct:'200052',nat:'servico'},
+ {n:'Educação',d:'escolas e cursos',ct:'200028',nat:'servico'},
+ {n:'Saúde',d:'clínicas e consultórios',ct:'200029',nat:'servico'},
+ {n:'Hotel e turismo',d:'desconto de 40%',ct:'200048',nat:'servico'},
+ {n:'Aluguel de imóvel',d:'desconto de 70%',ct:'200027',nat:'servico'},
+ {n:'Outra atividade',d:'procurar na tabela',ct:null,nat:null},
+];
+const K = {a:0, ct:'000001', ano:2027};
+const natNow = () => ATIV[K.a].nat || $('#k-nat').value;
+function renderAtiv(){
+  $('#k-ativ').innerHTML = ATIV.map((a,i)=>`<button class="choice" data-a="${i}" aria-pressed="${i===K.a}">${a.n}<small>${a.d}</small></button>`).join('');
+  $('#k-anos').innerHTML = YEARS.map(y=>`<button data-y="${y}" aria-pressed="${y===K.ano}">${y}</button>`).join('');
+  $('#k-outro').hidden = ATIV[K.a].ct!==null;
+  if (!$('#k-outro').hidden) renderPick();
+}
+function renderPick(){
+  const q = $('#k-busca').value.trim().toLowerCase();
+  const l = CT.filter(c => !/Sem alíquota/.test(c[4]||'') && (!q || (c[0]+' '+c[3]).toLowerCase().includes(q))).slice(0,60);
+  $('#k-lista').innerHTML = l.map(c=>`<button data-ct="${c[0]}" aria-pressed="${c[0]===K.ct}"><code>${c[0]}</code>${c[3]}${c[10]?` · <b>desconto ${fmt(c[10],0)}%</b>`:''}</button>`).join('') || '<p class="small muted" style="padding:12px">Nada encontrado. Tente outra palavra.</p>';
+}
+let lastJson='', lastXml='';
+function renderCalc(){
+  const p = prem(), r = rates(K.ano), ct = ctBy(K.ct)||CT[0], nat = natNow();
+  const valor = num('#k-valor'), frete = num('#k-frete'), desc = num('#k-desc'), auto = $('#k-auto').checked;
+  $('#k-locv').disabled = auto; $('#k-locp').disabled = !auto;
+  const nomeLoc = nat==='bem'?'ICMS':'ISS';
+  $('#k-loclbl').textContent = `Alíquota de ${nomeLoc} que você paga (%)`;
+  if (!$('#k-locp').dataset.touched) $('#k-locp').value = nat==='bem'?p.icms:p.iss;
+  const bruto = valor+frete-desc;
+  const vLoc = auto ? round2(bruto*num('#k-locp')*r.oldF/100) : num('#k-locv');
+  if (auto) $('#k-locv').value = vLoc;
+  const vPC = r.pc ? round2(bruto*.0925) : 0;
+  const inp = {ano:K.ano, nat, vProd:valor, vFrete:frete, vDesc:desc, vPIS:vPC*1.65/9.25, vCOFINS:vPC*7.6/9.25};
+  inp[nat==='bem'?'vICMS':'vISSQN'] = vLoc;
+  const al = {cbs:r.cbs, uf:r.uf, mun:r.mun}, R = calc(inp, ct, al), total = R.cbs.v+R.ibs, red = R.cbs.red;
+  const credOk = ct[5]===1 && ct[6]===1, locNow = r.oldF>0 && vLoc>0;
+  $('#k-anotxt').textContent = YTXT[K.ano];
+
+  const how = [`Começamos pelo valor da venda: <b>${brl(bruto)}</b>${frete||desc?' (já com frete e desconto)':''}.`];
+  if (locNow || vPC) how.push(`Tiramos os impostos antigos que ainda existem em ${K.ano}: ${[locNow?`${nomeLoc} de ${brl(vLoc)}`:'', vPC?`PIS/Cofins de ${brl(vPC)}`:''].filter(Boolean).join(' e ')}. Sobra a base de <b>${brl(R.b)}</b>.`);
+  else how.push(`Em ${K.ano} não há mais ${nomeLoc} nem PIS/Cofins para tirar. A base é o próprio valor: <b>${brl(R.b)}</b>.`);
+  if (R.sem) how.push('Esta atividade não tem cobrança de CBS e IBS (isenção, imunidade ou suspensão).');
+  else if (red) how.push(`Sua atividade tem <b>desconto de ${fmt(red,0)}%</b> na alíquota. A CBS cai de ${pc(r.cbs,2)} para ${pc(R.cbs.pe,2)} e o IBS de ${pc(r.uf+r.mun,2)} para ${pc(R.uf.pe+R.mun.pe,2)}.`);
+  else how.push(`Aplicamos a alíquota cheia: CBS de ${pc(r.cbs,2)} e IBS de ${pc(r.uf+r.mun,2)}.`);
+  how.push(`Resultado: CBS de <b>${brl(R.cbs.v)}</b> + IBS de <b>${brl(R.ibs)}</b> = <b>${brl(total)}</b>.`);
+
+  const boxes = [];
+  if (K.ano===2026) boxes.push(['att','!','Em 2026 é só teste. O valor aparece na nota, mas você não paga a mais se entregar as declarações em dia.']);
+  if (!R.sem) boxes.push(credOk ? ['ok','✓',`Se o cliente for uma empresa do regime normal, ele pode descontar esses ${brl(total)} como crédito no imposto dele.`] : ['no','✕','Nesta atividade o cliente não pode usar o imposto como crédito. Em troca, a lei dá desconto total na alíquota.']);
+  if (locNow) boxes.push(['att','!',`O ${nomeLoc} ainda existe em ${K.ano}${r.oldF<1?` (reduzido a ${fmt(r.oldF*100,0)}%)`:''}. Ele continua sendo pago separado, como hoje.`]);
+  if (/Uniforme setorial|Fixa/.test(ct[4]||'')) boxes.push(['att','!','Esta atividade tem alíquota própria definida em regulamento. Confirme o valor com seu contador.']);
+
+  const item = {numero:1, cst:ct[1], cClassTrib:ct[0], baseCalculo:R.b}; item[nat==='bem'?'ncm':'nbs'] = nat==='bem'?'00000000':'000000000';
+  if (K.ano>=2027) item.aliquotasNominais = {cbs:al.cbs, ibsEstadual:al.uf, ibsMunicipal:al.mun};
+  lastJson = JSON.stringify({id:'simulacao-sindiempresas-cabo', versao:'1.0.0', dhFatoGerador:`${K.ano}-03-10T10:00:00-03:00`, municipio:2602902, uf:'PE', itens:[item]}, null, 2);
+  const g = (t,o) => `    <g${t}>\n      <p${t}>${o.p.toFixed(4)}</p${t}>\n${red?`      <gRed><pRedAliq>${o.red.toFixed(4)}</pRedAliq><pAliqEfet>${o.pe.toFixed(4)}</pAliqEfet></gRed>\n`:''}      <v${t}>${o.v.toFixed(2)}</v${t}>\n    </g${t}>`;
+  lastXml = `<IBSCBS>\n  <CST>${ct[1]}</CST>\n  <cClassTrib>${ct[0]}</cClassTrib>\n  <gIBSCBS>\n    <vBC>${R.b.toFixed(2)}</vBC>\n${g('IBSUF',R.uf)}\n${g('IBSMun',R.mun)}\n    <vIBS>${R.ibs.toFixed(2)}</vIBS>\n${g('CBS',R.cbs)}\n  </gIBSCBS>\n</IBSCBS>`;
+
+  $('#k-out').innerHTML = `
+   <div class="result">
+     <span class="small muted">Imposto novo desta venda em ${K.ano}</span>
+     <div class="big">${brl(total)}</div>
+     <div class="lines">
+       <div><span><i class="dot" style="background:var(--cbs)"></i>CBS (federal)</span><b>${brl(R.cbs.v)}</b></div>
+       <div><span><i class="dot" style="background:var(--ibs)"></i>IBS (estado e município)</span><b>${brl(R.ibs)}</b></div>
+       ${locNow?`<div><span><i class="dot" style="background:var(--old)"></i>${nomeLoc} (ainda existe)</span><b>${brl(vLoc)}</b></div>`:''}
+       ${vPC?`<div><span><i class="dot" style="background:var(--old)"></i>PIS/Cofins (último ano)</span><b>${brl(vPC)}</b></div>`:''}
+       <div class="t"><span>Seu cliente paga no total</span><b>${brl(bruto+total)}</b></div>
+     </div>
+     <p class="small muted">${ATIV[K.a].ct?ATIV[K.a].n:'Atividade escolhida'} · ${ct[3].slice(0,90)}</p>
+   </div>
+   ${boxes.map(([c,i,t])=>`<div class="box ${c}"><span class="i">${i}</span><span>${t}</span></div>`).join('')}
+   <div class="card stack"><h3>Como chegamos nesse valor</h3><ol class="how">${how.map(h=>`<li>${h}</li>`).join('')}</ol></div>
+   <div class="card stack"><h3>Como deve sair na nota fiscal</h3>
+     <p class="small muted">Confira se o seu sistema emissor preenche estes campos.</p>
+     <div class="nota">
+       <span class="c">CST</span><span class="d">situação tributária</span><span class="v">${ct[1]}</span>
+       <span class="c">cClassTrib</span><span class="d">classificação</span><span class="v">${ct[0]}</span>
+       <span class="c">vBC</span><span class="d">base de cálculo</span><span class="v">${fmt(R.b)}</span>
+       <span class="c">vCBS</span><span class="d">CBS (${fmt(R.cbs.pe,2)}%)</span><span class="v">${fmt(R.cbs.v)}</span>
+       <span class="c">vIBSUF</span><span class="d">IBS estadual (${fmt(R.uf.pe,2)}%)</span><span class="v">${fmt(R.uf.v)}</span>
+       <span class="c">vIBSMun</span><span class="d">IBS municipal (${fmt(R.mun.pe,2)}%)</span><span class="v">${fmt(R.mun.v)}</span>
+     </div>
+   </div>
+   <details><summary>Dados para o contador (JSON e XML)</summary><div class="in">
+     <div class="row"><button data-copy="json">Copiar JSON da API</button><button data-copy="xml">Copiar XML da nota</button></div>
+     <pre class="code" id="k-json"></pre><pre class="code" id="k-xml"></pre>
+     <p class="small muted">JSON no formato do POST /regime-geral da calculadora oficial. Troque o NCM/NBS e o município pelos da sua operação.</p>
+   </div></details>`;
+  $('#k-json').textContent = lastJson; $('#k-xml').textContent = lastXml;
+}
+async function copyText(t, btn){
+  const old = btn.textContent;
+  try { await navigator.clipboard.writeText(t); btn.textContent = 'Copiado'; }
+  catch(e){ const pre = $(btn.dataset.copy==='json'?'#k-json':'#k-xml'); const rg = document.createRange(); rg.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(rg); btn.textContent = 'Texto selecionado'; }
+  setTimeout(()=>btn.textContent = old, 1800);
+}
+
+/* SIMPLES */
+const SN = {
+  I:{t:[[180e3,4,0],[360e3,7.3,5940],[720e3,9.5,13860],[1.8e6,10.7,22500],[3.6e6,14.3,87300],[4.8e6,19,378000]],share:.495},
+  II:{t:[[180e3,4.5,0],[360e3,7.8,5940],[720e3,10,13860],[1.8e6,11.2,22500],[3.6e6,14.7,85500],[4.8e6,30,720000]],share:.535},
+  III:{t:[[180e3,6,0],[360e3,11.2,9360],[720e3,13.5,17640],[1.8e6,16,35640],[3.6e6,21,125640],[4.8e6,33,648000]],share:.491},
+  IV:{t:[[180e3,4.5,0],[360e3,9,8100],[720e3,10.2,12420],[1.8e6,14,39780],[3.6e6,22,183780],[4.8e6,33,828000]],share:.62},
+  V:{t:[[180e3,15.5,0],[360e3,18,4500],[720e3,19.5,9900],[1.8e6,20.5,17100],[3.6e6,23,62100],[4.8e6,30.5,540000]],share:.3115},
+};
+function efetiva(an, rbt){ const tb = SN[an].t, rb = Math.max(rbt,1), f = tb.find(x=>rb<=x[0])||tb[tb.length-1]; return rb<=180e3?f[1]:(rb*f[1]/100-f[2])/rb*100; }
+function renderSN(){
+  const an = $('#sn-anexo').value, fat = num('#sn-fat'), b2b = num('#sn-b2b')/100, comp = num('#sn-comp');
+  const red = +$('#sn-red').value, r = rates(+$('#sn-ano').value), tc = tot(r), t = tc*(1-red/100);
+  $('#sn-b2b-l').textContent = `${fmt(b2b*100,0)}% para empresas · ${fmt((1-b2b)*100,0)}% para consumidor final`;
+  const efIn = parseFloat($('#sn-ef').value), inf = isFinite(efIn)&&efIn>0, ef = inf ? efIn : efetiva(an, num('#sn-rbt')), sh = SN[an].share;
+  const A = fat*ef/100, credCliA = fat*b2b*ef*sh/100;
+  const dasB = A*(1-sh), deb = fat*t/100, credProp = comp*tc/100, B = dasB + Math.max(0,deb-credProp), credCliB = fat*b2b*t/100;
+  const diff = B-A, ganho = credCliB-credCliA;
+  let win, why;
+  if (b2b < .3 && diff > 0){ win='A'; why='A maioria dos seus clientes é consumidor final, que não usa crédito. Mudar só aumentaria o imposto.'; }
+  else if (diff <= 0){ win='B'; why='Com o crédito das suas compras, o regime regular sai mais barato e ainda ajuda seus clientes empresa.'; }
+  else if (ganho > diff){ win='B'; why=`Você pagaria ${brl(diff)} a mais por mês, mas seus clientes empresa ganhariam ${brl(ganho)} a mais de crédito. Isso dá espaço para negociar preço e vender mais.`; }
+  else { win='A'; why='O imposto a mais no regime regular é maior do que a vantagem que seus clientes teriam.'; }
+  $('#sn-out').innerHTML = `
+    <div class="result"><span class="small muted">Para o seu caso, a melhor opção parece ser</span><div class="big" style="font-size:clamp(24px,6vw,32px)">${win==='A'?'Continuar no DAS':'Mudar para o regime regular'}</div><p>${why}</p></div>
+    <div class="vs">
+      <div class="opt ${win==='A'?'win':''}">${win==='A'?'<span class="tag">Indicado</span>':''}<b>Continuar no DAS</b><span class="small muted">Imposto total por mês</span><span class="val">${brl(A)}</span>
+        <ul class="ck"><li class="y">Mais simples: uma guia só</li><li class="n">Não aproveita crédito das compras</li><li class="a">Cliente empresa desconta ${brl(credCliA)} por mês</li></ul></div>
+      <div class="opt ${win==='B'?'win':''}">${win==='B'?'<span class="tag">Indicado</span>':''}<b>Regime regular</b><span class="small muted">Imposto total por mês</span><span class="val">${brl(B)}</span>
+        <ul class="ck"><li class="y">Desconta ${brl(credProp)} de crédito das compras</li><li class="y">Cliente empresa desconta ${brl(credCliB)} por mês</li><li class="n">Apuração separada da CBS e do IBS</li></ul></div>
+    </div>
+    <p class="small muted">Alíquota do Simples usada: ${pc(ef,2)}${inf?' (informada)':' (estimada pela tabela)'}. Regime regular: ${pc(t,2)} em ${$('#sn-ano').value}. Valores aproximados: confirme com seu contador antes de decidir.</p>`;
+}
+
+/* CRÉDITOS */
+const BUYS = [
+ {id:'merc',n:'Mercadorias e matéria-prima',h:'de empresas do regime normal',v:60000,k:'full'},
+ {id:'desp',n:'Energia, aluguel, internet, frete',h:'despesas da empresa',v:12000,k:'full'},
+ {id:'maq',n:'Máquinas, equipamentos, computadores',h:'crédito integral na hora',v:15000,k:'full'},
+ {id:'sn',n:'Compras de empresas do Simples',h:'crédito menor, só o que veio no DAS',v:5000,k:'sn'},
+ {id:'pf',n:'Compras de pessoa física, sem nota',h:'não geram crédito',v:2000,k:'none'},
+ {id:'pes',n:'Despesas pessoais de sócios',h:'viagens, carro particular: proibido',v:3000,k:'none'},
+];
+function renderBuys(){
+  $('#cr-buys').innerHTML = BUYS.map(b=>`<div class="buy"><div><b>${b.n}</b><small>${b.h}</small></div><div class="money"><input type="number" inputmode="decimal" id="cr-${b.id}" value="${b.v}" step="500" aria-label="${b.n}"></div></div>`).join('');
+}
+function renderCr(){
+  const r = rates(+$('#cr-ano').value), tc = tot(r), t = tc*(1-num('#cr-red')/100), deb = num('#cr-venda')*t/100;
+  let cred = 0, lost = 0; const rows = [];
+  BUYS.forEach(b=>{ const v = num('#cr-'+b.id); let c = 0;
+    if (b.k==='full') c = v*tc/100; else if (b.k==='sn') c = v*.02; else lost += v*tc/100;
+    cred += c; rows.push([b.n, c, b.k]); });
+  const pay = deb - cred, m = Math.max(deb, cred, 1);
+  $('#cr-out').innerHTML = `
+    <div class="result"><span class="small muted">${pay>=0?'Você paga no mês':'Sobra de crédito para o próximo mês'}</span><div class="big">${brl(Math.abs(pay))}</div>
+      <div class="cmp"><div class="lbl"><span>Imposto das vendas</span><b class="num">${brl(deb)}</b></div><div class="track"><span style="width:${deb/m*100}%;background:var(--ibs)"></span></div></div>
+      <div class="cmp"><div class="lbl"><span>Créditos das compras</span><b class="num">− ${brl(cred)}</b></div><div class="track"><span style="width:${cred/m*100}%;background:var(--ok)"></span></div></div>
+    </div>
+    <div class="card"><div class="lines">${rows.map(([n,c,k])=>`<div><span>${n}<br><span class="${k==='none'?'tag-no':k==='sn'?'tag-att':'tag-ok'}">${k==='none'?'sem crédito':k==='sn'?'crédito parcial':'crédito integral'}</span></span><b>${brl(c)}</b></div>`).join('')}</div></div>
+    ${pay<0?'<div class="box ok"><span class="i">✓</span><span>Sobrou crédito. Você pode usar nos próximos meses ou pedir a devolução em dinheiro.</span></div>':''}
+    ${lost>0?`<div class="box att"><span class="i">!</span><span>${brl(lost)} de imposto embutido em compras não vira crédito. Sempre que possível, compre com nota de empresas do regime normal.</span></div>`:''}
+    <p class="small muted">Alíquota usada: ${pc(t,2)} nas vendas e ${pc(tc,2)} nas compras (${$('#cr-ano').value}). Compras do Simples: crédito estimado de 2%.</p>`;
+}
+
+/* PAGAMENTO */
+function renderSp(){
+  const V = num('#sp-valor'), r = rates(+$('#sp-ano').value), t = tot(r)*(1-num('#sp-red')/100), tax = V*t/100, total = V+tax;
+  const cartao = $('#sp-meio').value==='cartao', pct = total ? tax/total*100 : 0;
+  $('#sp-out').innerHTML = cartao ? `
+    <div class="result"><span class="small muted">Cliente paga</span><div class="big">${brl(total)}</div><p>Pagamento com cartão ainda não entra no pagamento dividido. Você recebe ${brl(total)} e recolhe ${brl(tax)} de imposto na guia do mês, como hoje.</p></div>` : `
+    <div class="result"><span class="small muted">Cliente paga</span><div class="big">${brl(total)}</div>
+      <div class="flow"><span style="width:${100-pct}%;background:var(--brand)">você ${fmt(100-pct,0)}%</span><span style="width:${pct}%;background:var(--ibs)">${pct>12?'imposto':''}</span></div>
+      <div class="lines"><div><span>Cai na sua conta</span><b>${brl(V)}</b></div><div><span>O banco envia ao governo</span><b>${brl(tax)}</b></div></div>
+    </div>
+    <div class="vs">
+      <div class="opt"><b>Como é hoje</b><ul class="ck"><li class="a">Você recebe tudo, inclusive o imposto</li><li class="a">Paga a guia no mês seguinte</li><li class="n">Risco de usar o dinheiro do imposto no caixa</li></ul></div>
+      <div class="opt"><b>Com o pagamento dividido</b><ul class="ck"><li class="a">Você recebe só o seu valor</li><li class="y">Esse imposto já sai pago</li><li class="y">Seu cliente ganha o crédito na hora</li></ul></div>
+    </div>
+    <div class="box att"><span class="i">!</span><span>Planeje o caixa: o dinheiro do imposto deixa de passar pela sua conta. Se você parcela, cada parcela já chega sem a parte do imposto.</span></div>`;
+}
+function renderCrono(){
+  const cr = [['Mar/2027','Testes entre contas do mesmo banco'],['Mai/2027','Testes com TED e Pix'],['Jul/2027','Testes com boleto e Pix com QR dinâmico'],['Ago/2027','Liberado para todas as empresas: Pix e transferências'],['Out/2027','Liberado para todas as empresas: boleto e Pix dinâmico']];
+  $('#sp-crono').innerHTML = cr.map(([d,t])=>`<div class="yr"><div class="y" style="font-size:15px">${d}</div><div class="small">${t}</div></div>`).join('');
+}
+
+/* DÚVIDAS */
+const FAQ = [
+ ['O que são CBS e IBS?','São os dois novos impostos sobre o consumo. A CBS é federal e substitui PIS e Cofins. O IBS é de estados e municípios e substitui ICMS e ISS. Os dois funcionam do mesmo jeito: cobrados por fora do preço e com direito a crédito.'],
+ ['Quando eu começo a pagar?','Em 2026 é teste: o imposto só aparece na nota. A CBS começa a ser paga em janeiro de 2027. O IBS cresce aos poucos de 2029 a 2033, enquanto ICMS e ISS diminuem.'],
+ ['Preciso trocar meu sistema de nota fiscal?','Precisa atualizar. A nota passa a ter campos novos: CST, cClassTrib e os valores de CBS e IBS. Pergunte ao fornecedor do seu sistema se ele já usa a calculadora oficial da Receita.'],
+ ['O que é cClassTrib?','É um código de 6 dígitos que diz qual regra vale para o que você vende: cobrança cheia, desconto na alíquota ou isenção. Na tela Calcular venda, a escolha da atividade já define o código.'],
+ ['Sou do Simples Nacional. O que muda?','Se não fizer nada, continua pagando tudo no DAS. Você também pode escolher pagar CBS e IBS separado para aproveitar créditos e passar mais crédito aos seus clientes. Compare na tela Simples Nacional.'],
+ ['E o MEI?','O MEI continua no regime próprio, pagando um valor fixo por mês. Quem fatura até R$ 40.500 por ano como nanoempreendedor não paga CBS e IBS.'],
+ ['O que é crédito?','É o imposto que você já pagou nas compras da empresa. Ele é descontado do imposto das suas vendas. No fim do mês você paga só a diferença.'],
+ ['O que é o pagamento dividido (split payment)?','Na hora em que o cliente paga por Pix ou boleto, o banco separa a parte do imposto e envia direto ao governo. Começa em 2027 para vendas entre empresas.'],
+ ['O que é cashback?','É a devolução de parte da CBS e do IBS para famílias de baixa renda inscritas no CadÚnico. Começa em 2027 e não muda o cálculo da sua nota.'],
+ ['A alíquota já está definida?','Para 2027, o TCU calculou a CBS em 11,3%. O Senado precisa confirmar até 22/12/2026; se não confirmar, vale o cálculo do TCU. A alíquota final de 2033 ainda é estimativa.'],
+];
+function renderFaq(){ $('#faq').innerHTML = FAQ.map(([q,a],i)=>`<details ${i===0?'open':''}><summary>${q}</summary><div class="in"><p>${a}</p></div></details>`).join(''); }
+function renderPrem(){
+  $('#ptable').innerHTML = `<tr><th>Ano</th><th class="r">CBS</th><th class="r">IBS</th><th class="r">Total</th><th class="r">ICMS/ISS</th></tr>` +
+    YEARS.map(y=>{const r=rates(y); return `<tr><td>${y}</td><td class="r">${pc(r.cbs,2)}</td><td class="r">${pc(r.uf+r.mun,2)}</td><td class="r"><b>${pc(tot(r),2)}</b></td><td class="r">${fmt(r.oldF*100,0)}%</td></tr>`}).join('');
+}
+
+function renderAll(){ renderYears(); renderCmp(); renderCalc(); renderSN(); renderCr(); renderSp(); renderPrem(); }
+function init(){
+  $('#h-set').innerHTML = SET.map((s,i)=>`<option value="${i}">${s.n}</option>`).join('');
+  ['#sn-ano','#cr-ano','#sp-ano'].forEach(s=>yearOpts($(s),2027)); $('#cr-ano').value = 2033;
+  renderBuys(); renderAtiv(); renderFaq(); renderCrono(); renderAll(); route();
+  document.addEventListener('click', e=>{
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.a){ const prevNat = natNow(); K.a = +b.dataset.a; const a = ATIV[K.a]; if (a.ct) K.ct = a.ct; if (natNow()!==prevNat) $('#k-locp').dataset.touched=''; renderAtiv(); renderCalc(); }
+    else if (b.dataset.ct){ K.ct = b.dataset.ct; renderPick(); renderCalc(); }
+    else if (b.dataset.y){ K.ano = +b.dataset.y; renderAtiv(); renderCalc(); }
+    else if (b.dataset.copy) copyText(b.dataset.copy==='json'?lastJson:lastXml, b);
+  });
+  document.addEventListener('input', e=>{
+    const id = e.target.id||'';
+    if (id.startsWith('p-')) return renderAll();
+    if (id==='h-set') return renderCmp();
+    if (id==='k-busca') return renderPick();
+    if (id==='k-locp') e.target.dataset.touched = '1';
+    if (id==='k-nat') $('#k-locp').dataset.touched = '';
+    if (id.startsWith('k-')) return renderCalc();
+    if (id.startsWith('sn-')) return renderSN();
+    if (id.startsWith('cr-')) return renderCr();
+    if (id.startsWith('sp-')) return renderSp();
+  });
+}
+init();
+(function(){const b=document.getElementById('mbtn'),n=document.getElementById('portal');if(!b)return;b.addEventListener('click',()=>{const o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);});n.addEventListener('click',e=>{if(e.target.tagName==='A'){n.classList.remove('open');b.setAttribute('aria-expanded','false');}});})();
+</script>
+
+</body>
+</html>
